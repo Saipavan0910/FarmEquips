@@ -79,6 +79,11 @@
 
         .navbar-brand img {
             border-radius: 50%;
+            height: 80px;
+            width: 80px;
+        }
+        .p-0{
+            margin-top: -20px;
         }
     </style>
 </head>
@@ -189,14 +194,14 @@
             </div>
             <div class="modal-body">
                 <div id="loginSection">
-                    <form onsubmit="handleLogin(event)">
+                    <form onsubmit="handleLogin(event)" method="POST" action="login.php">
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                            <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                            <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password">
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
@@ -204,45 +209,45 @@
                 </div>
                 <!-- SignUp Section -->
                 <div id="signUpSection" style="display: none;">
-                    <form onsubmit="handleSignUp(event)">
+                    <form onsubmit="handleSignUp(event)" method="POST" action="signup.php">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="firstName">First Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
+                                <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" name="firstName">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="lastName">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Enter your last name">
+                                <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" name="lastName">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="usernameSignUp">Username</label>
-                            <input type="text" class="form-control" id="usernameSignUp" placeholder="Choose a username">
+                            <input type="text" class="form-control" id="usernameSignUp" placeholder="Choose a username" name="usernameSignUp">
                         </div>
                         <div class="form-group">
                             <label for="passwordSignUp">Password</label>
-                            <input type="password" class="form-control" id="passwordSignUp" placeholder="Choose a password">
+                            <input type="password" class="form-control" id="passwordSignUp" placeholder="Choose a password" name="passwordSignUp">
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+                            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" name="phone">
                         </div>
                         <div class="form-group">
                             <label for="location">Location</label>
-                            <input type="text" class="form-control" id="location" placeholder="Enter your location">
+                            <input type="text" class="form-control" id="location" placeholder="Enter your location" name="location">
                         </div>
                         <div class="form-group">
                             <label for="aadharNumber">Aadhar Card Number</label>
-                            <input type="text" class="form-control" id="aadharNumber" placeholder="Enter your Aadhar Card Number">
+                            <input type="text" class="form-control" id="aadharNumber" placeholder="Enter your Aadhar Card Number" name="aadharNumber">
                         </div>
                 
                         <div class="form-group">
                             <label for="panNumber">PAN Card Number</label>
-                            <input type="text" class="form-control" id="panNumber" placeholder="Enter your PAN Card Number">
+                            <input type="text" class="form-control" id="panNumber" placeholder="Enter your PAN Card Number" name="panNumber">
                         </div>
                         <div class="form-group">
                             <label for="userTypeSignUp">Sign Up As:</label>
-                            <select class="form-control" id="userTypeSignUp">
+                            <select class="form-control" id="userTypeSignUp" name="userTypeSignUp">
                                 <option value="farmer">Farmer</option>
                                 <option value="owner">Owner</option>
                             </select>
@@ -271,44 +276,34 @@
         document.getElementById('signUpSection').style.display = 'none';
     }
 
-    // Function to validate username (customize based on your requirements)
     function isValidUsername(username) {
         return username.length >= 3;
     }
 
-    // Function to validate password (customize based on your requirements)
     function isValidPassword(password) {
         return password.length >= 8;
     }
 
-    // Function to validate name (allow only alphabets)
     function isValidName(name) {
         return /^[a-zA-Z]+$/.test(name);
     }
 
-    // Function to validate phone number (exactly 10 digits)
     function isValidPhoneNumber(phone) {
         return /^\d{10}$/.test(phone);
     }
 
-    // Function to validate location (allow any characters for simplicity)
     function isValidLocation(location) {
         return location.trim() !== '';
     }
     function isValidAadharNumber(aadharNumber) {
-    // Customize based on your requirements
-    return /^\d{12}$/.test(aadharNumber);
+        return /^\d{12}$/.test(aadharNumber);
     }
 
-// Function to validate PAN card number
     function isValidPANNumber(panNumber) {
-    // Customize based on your requirements
-    return /^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(panNumber);
+        return /^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(panNumber);
     }  
 
-    // Function to handle signup form submission
     function handleSignUp(event) {
-        // Get the values of form fields
         var firstName = document.getElementById('firstName').value;
         var lastName = document.getElementById('lastName').value;
         var usernameSignUp = document.getElementById('usernameSignUp').value;
@@ -318,56 +313,27 @@
         var aadharNumber = document.getElementById('aadharNumber').value;
         var panNumber = document.getElementById('panNumber').value;
 
-        // Perform client-side validation
         if (!isValidName(firstName) || !isValidName(lastName) || !isValidUsername(usernameSignUp) || !isValidPassword(passwordSignUp) || !isValidPhoneNumber(phone) || !isValidLocation(location)|| !isValidAadharNumber(aadharNumber) ||
         !isValidPANNumber(panNumber)) {
-            // Display an error message or perform any necessary actions
             alert('Invalid input. Please check your details.');
 
-            // Prevent the form from submitting the traditional way
             event.preventDefault();
             return;
         }
-
-        // If client-side validation passes, the form will be submitted.
-        // You may choose to perform additional client-side validation.
-
-        // Add your signup logic here (e.g., sending data to the server)
-        alert('Sign up Successful!');  // Replace with your actual signup logic
-
-        // Prevent the form from submitting the traditional way
-        event.preventDefault();
     }
 
-    // Function to handle login form submission
     function handleLogin(event) {
-        // Get the values of username and password
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
 
-        // Add your client-side validation logic
         if (!isValidUsername(username) || !isValidPassword(password)) {
-            // Display an error message or perform any necessary actions
             alert('Invalid username or password. Please check your input.');
-            
-            // Prevent the form from submitting the traditional way
             event.preventDefault();
             return;
         }
-
-        // Add your login logic here
-        // Assuming login is successful, redirect to another page
-        window.location.href = './Equip.html';
-
-        // Prevent the form from submitting the traditional way
-        event.preventDefault();
     }
 </script>
 
-
-
-
-    <!-- Footer Section -->
     <footer class="text-center">
         <p>&copy; 2024 FarmFlow Equipment Rental. All Rights Reserved.</p>
     </footer>
@@ -378,5 +344,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 </body>
-
 </html>
