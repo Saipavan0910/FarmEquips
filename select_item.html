@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: darkcyan;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        input[type="text"], input[type="date"] {
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo.png" alt="Company Logo" height="50">
+    </header>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Products Description</th>
+                <th>Price</th>
+                <th>Select</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Product 1</td>
+                <td>Rs. 500</td>
+                <td>
+                    <input type="date" placeholder="Start Date">
+                    <br>
+                    <input type="date" placeholder="End Date">
+                    <br>
+                    <button>Add to Cart</button>
+                </td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+
+</body>
+</html>

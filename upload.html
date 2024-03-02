@@ -49,7 +49,7 @@
   <div class="container mt-4">
     <h2 class="mb-4">UPLOAD EQUIPMENT</h2>
 
-    <form enctype="multipart/form-data" style="width: 70vh;">
+    <form enctype="multipart/form-data" style="width: 70vh;" onsubmit="return validateForm()" method="POST" action="upload.php">
         <div class="form-group">
             <label for="vehicleNumber">Vehicle Number</label>
             <input type="text" class="form-control" id="vehicleNumber" name="vehicleNumber" required>
@@ -84,11 +84,6 @@
             <input type="text" class="form-control" id="price" name="price" required>
           </div>
     
-          <div class="form-group">
-            <label for="image">Image</label>
-            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
-          </div>
-    
           <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
@@ -101,19 +96,22 @@
     function validateForm() {
       var vehicleNumber = document.getElementById('vehicleNumber').value;
       var vehicleNumberRegex = /^[a-zA-Z]{2}\d{2}[a-zA-Z]{2}\d{4}$/;
+      var errors = [];
       if (!vehicleNumberRegex.test(vehicleNumber)) {
-        alert('Invalid Vehicle Number. Please enter again.');
-        return false;
+        errors.push('Invalid Vehicle Number.');
       }
 
       var vehicleType = document.getElementById('vehicleType').value;
-
       var description = document.getElementById('description').value;
 
       var price = document.getElementById('price').value;
       var priceRegex = /^\d+(\.\d{1,2})?$/;
       if (!priceRegex.test(price)) {
-        alert('Invalid Price. Please enter a valid number.');
+        errors.push('Invalid Price.');
+      }
+
+      if (errors.length > 0){
+        alert(errors.join('\n'));
         return false;
       }
       
@@ -122,5 +120,4 @@
     }
   </script>
 </body>
-
 </html>
