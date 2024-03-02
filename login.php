@@ -26,6 +26,10 @@ if($matched_user == 0){
         $_SESSION['owner_id'] = $owner_row[0];
         header("location: upload.html");
     } else {
+        $user_id = $_SESSION['user_id'];
+        $farmer_data = mysqli_query($conn, "select farmer_id from farmer where user_id = '$user_id'");
+        $farmer_row = mysqli_fetch_row($farmer_data);
+        $_SESSION['farmer_id'] = $farmer_row[0];
         header("location: Equip.html");
     }
 }
