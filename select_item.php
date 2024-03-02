@@ -125,7 +125,7 @@
         </tbody>
     </table>
 
-    <button id="goToCartButton">Go to Cart</button>
+    <button id="goToCartButton" onclick="redirectToCart()">Go to Cart</button>
 
     <script>
         function addToCart(vehicleId){
@@ -148,6 +148,10 @@
                 alert("Item added to the cart!");
             }
         }
+
+        function redirectToCart() {
+        window.location.href = 'cart.html';
+    }
     </script>
 </body>
 </html>
