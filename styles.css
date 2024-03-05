@@ -6,8 +6,8 @@ body {
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 2000px;
+    margin-left: 50px;
     padding: 12px;
 }
 
@@ -42,63 +42,19 @@ header {
 .header-controls {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 75%;
 }
 
-.search-bar {
-    margin-right: 10px;
-    width: 50%;
-}
-
-.search-bar input {
-    padding: 10px;
-    width: 70%;
-}
-
-.search-bar button {
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.location {
-    margin-right: 10px;
-    width: 30%;
-}
-
-.location label {
-    margin-right: 5px;
-}
-
-.location select {
-    padding: 8px;
-    width: 65%;
-}
-
-.filter{
-    width: 25%;
-}
-
-.filter select {
-    padding: 10px;
-}
-
-.cart {
-    width: 12%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
 .cart a {
+    margin-bottom: 10px;
     text-decoration: none;
     color: white;
     font-size: 20px;
     border: 1px solid black;/* Different background color for the cart */
     padding: 10px;
     border-radius: 5px;
+    margin-right: 20px;
 }
 
 .main {
@@ -109,12 +65,12 @@ header {
 
 .equipment-item {
     width: 30%;
-    margin: 10px 0;
+    margin: 10px 10pxko;
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
     border-radius: 33px;
-    display: flex;
+    display: inline-flex;
     flex-direction: column; /* Adjusted to a flex container */
     justify-content: space-between;
 }
@@ -135,6 +91,7 @@ header {
     max-width: 95%;
     height: 45%;
     margin: 10px;
+    height: 300px;
 }
 
 .equipment-image img{
