@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farming Equipment Rental Portal</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding: 20px;
+      background-image: url('bg.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: darkcyan;
+      padding: 20px;
+      margin: -4vh;
+      height: 100px;
+    }
+
+    .logo {
+      max-width: 75px;
+      border-radius: 50%;
+    }
+
+    h2{
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    form {
+       max-width: 500px;
+       margin: 0 auto; 
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <img src="logo.png" alt="Company Logo" class="logo">
+  </div>
+
+  <div class="container mt-4">
+    <h2 class="mb-4">UPLOAD EQUIPMENT</h2>
+
+    <form enctype="multipart/form-data" style="width: 70vh;" onsubmit="return validateForm()" method="POST" action="upload.php">
+        <div class="form-group">
+            <label for="vehicleNumber">Vehicle Number</label>
+            <input type="text" class="form-control" id="vehicleNumber" name="vehicleNumber" required>
+          </div>
+    
+          <div class="form-group">
+            <label for="vehicleType">Vehicle Type</label>
+            <select class="form-control" id="vehicleType" name="vehicleType" required>
+                <option value="" disabled selected>Select Vehicle</option>
+                <option value="1">Cultivators</option>
+                <option value="2">Harvestors</option>
+                <option value="3">Tractors</option>
+                <option value="4">Seed Sowing Machine</option>
+                <option value="5">Sprayers</option>
+                <option value="6">Tiller</option>
+                <option value="7">Trailer</option>
+                <option value="8">Baler</option>
+                <option value="9">Thresher</option>
+                <option value="10">Water Pump</option>
+                <option value="11">Cage Wheel</option>
+                <option value="12">Plows</option>
+            </select>
+          </div>
+    
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+          </div>
+    
+          <div class="form-group">
+            <label for="Price">Price</label>
+            <input type="text" class="form-control" id="price" name="price" required>
+          </div>
+    
+          <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script>
+    function validateForm() {
+      var vehicleNumber = document.getElementById('vehicleNumber').value;
+      var vehicleNumberRegex = /^[a-zA-Z]{2}\d{2}[a-zA-Z]{2}\d{4}$/;
+      var errors = [];
+      if (!vehicleNumberRegex.test(vehicleNumber)) {
+        errors.push('Invalid Vehicle Number.');
+      }
+
+      var vehicleType = document.getElementById('vehicleType').value;
+      var description = document.getElementById('description').value;
+
+      var price = document.getElementById('price').value;
+      var priceRegex = /^\d+(\.\d{1,2})?$/;
+      if (!priceRegex.test(price)) {
+        errors.push('Invalid Price.');
+      }
+
+      if (errors.length > 0){
+        alert(errors.join('\n'));
+        return false;
+      }
+      
+      var image = document.getElementById('image').value;
+      return true;
+    }
+  </script>
+</body>
+</html>
