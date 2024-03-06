@@ -4,6 +4,7 @@
 $vehicle_id = $_POST['vehicle_id'];
 $start_date = $_POST['start_date'];
 $end_date = $_POST['end_date'];
+$price = $_POST['price'];
 
 include_once "connection.php";
 
@@ -38,8 +39,8 @@ if ($matched_order == 0) {
 
 // insert line item
 $insertLineItem = mysqli_query($conn, 
-            "INSERT INTO `line_item` (`order_id`, `vehicle_id`, `start_date`, `end_date`) 
-            VALUES ('$order_id', $vehicle_id, $start_date, $end_date)");
+            "INSERT INTO line_item (order_id, vehicle_id, start_date, end_date, price) 
+            VALUES ('$order_id', '$vehicle_id', '$start_date', '$end_date', '$price')");
 if ($insertLineItem) {
     echo "Success";
 } else {

@@ -109,7 +109,7 @@
             <tr>
                 <td><?php echo $i; ?></td>
                 <td><?php echo $row['description']; ?></td>
-                <td><?php echo $row['price']; ?></td>
+                <td id='price'><?php echo $row['price']; ?></td>
                 <td>
                     <input type="date" placeholder="startdate" id="startdate-<?php echo $row['vehicle_id']; ?>">
                     <br>
@@ -132,6 +132,7 @@
             console.log(vehicleId)
             var startdate = document.getElementById('startdate-'+vehicleId).value;
             var enddate = document.getElementById('enddate-'+vehicleId).value;
+            var price = document.getElementById('price').innerHTML
 
             if (startdate === "" || enddate === "") {
                 alert("Please select start date and end date.");
@@ -140,7 +141,8 @@
                 {
                     vehicle_id: vehicleId,
                     start_date: startdate,
-                    end_date: enddate
+                    end_date: enddate, 
+                    price: price
                 },
                 function(data, status){
                     alert("Data: " + data + "\nStatus: " + status);
