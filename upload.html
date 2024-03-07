@@ -93,6 +93,16 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
   <script>
+    function change(element){
+      element.style = "color: black; font-style: none;"
+    }
+    function changeColors(element){
+      const myElement = element;
+      for (const child of myElement.children) {
+        child.style = "color: black; font-style: none;"
+      }
+    }
+
     function validateForm() {
       var vehicleNumber = document.getElementById('vehicleNumber').value;
       var vehicleNumberRegex = /^[a-zA-Z]{2}\d{2}[a-zA-Z]{2}\d{4}$/;
