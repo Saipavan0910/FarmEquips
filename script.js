@@ -103,5 +103,4 @@ function updateLocalStorage() {
     localStorage.setItem('cart', JSON.stringify(cartItems));
 }
 
-// Initialize the cart when the page loads
 updateCart();
