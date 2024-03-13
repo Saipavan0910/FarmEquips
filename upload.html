@@ -9,7 +9,7 @@
   <style>
     body {
       padding: 20px;
-      background-image: url('new_bg_image.jpg'); /* Change the background image path */
+      background-image: url(''); /* Change the background image path */
       background-size: cover;
       background-repeat: no-repeat;
       color: #333;
@@ -23,23 +23,26 @@
       background-color: darkcyan;
       padding: 20px;
       margin: -4vh;
-      height: 100px;
+      height: 120px;
     }
 
     .logo {
-      max-width: 75px;
+      margin-top: 12px;
+      margin-left: 20px;
+      max-width: 90px;
       border-radius: 50%;
     }
 
     h2 {
       text-align: center;
-      margin-top: 40px;
-      color: darkcyan;
+      margin-top: 60px;
+      color: white;
+      font-size: 3rem;
     }
 
     form {
       max-width: 500px;
-      margin: 0 auto;
+      margin: 80px auto;
       background-color: rgba(255, 255, 255, 0.9);
       padding: 30px;
       border-radius: 10px;
@@ -60,19 +63,36 @@
       transition: background-color 0.3s ease;
     }
 
+    a{
+      margin-bottom: 10px;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    border: 1px solid black;/* Different background color for the cart */
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 30px;
+    margin-top: 20px;
+    }
+
     button:hover {
       background-color: #17a2b8;
     }
   </style>
+  <script src="https://kit.fontawesome.com/4e97f0f302.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
   <div class="header">
+    
     <img src="logo.png" alt="Company Logo" class="logo">
+    <h2 class="mb-4" style="text-align: center;"><strong>UPLOAD EQUIPMENT</strong></h2>
+    <a href="profile.html" class="icon"><i class="fa-solid fa-user"></i></a>
+    
   </div>
 
   <div class="container mt-4">
-    <h2 class="mb-4">UPLOAD EQUIPMENT</h2>
+   
 
     <form enctype="multipart/form-data" style="width: 70vh;" onsubmit="return validateForm()" method="POST" action="upload.php">
         <div class="form-group">
