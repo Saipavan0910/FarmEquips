@@ -51,7 +51,7 @@ header {
     text-decoration: none;
     color: white;
     font-size: 20px;
-    border: 1px solid black;/* Different background color for the cart */
+    border: 1px solid black;
     padding: 10px;
     border-radius: 5px;
     margin-right: 20px;
@@ -71,7 +71,7 @@ header {
     text-align: center;
     border-radius: 33px;
     display: inline-flex;
-    flex-direction: column; /* Adjusted to a flex container */
+    flex-direction: column; 
     justify-content: space-between;
 }
 
