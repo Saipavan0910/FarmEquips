@@ -17,7 +17,7 @@ $orderRequest = mysqli_query($conn,
         "SELECT order_id 
         FROM `order`
         WHERE farmer_id = '$farmer_id' 
-            AND status = 'In Cart'");
+        AND status = 'In Cart'");
 $matched_order = mysqli_num_rows($orderRequest);
 $order_id;
 
