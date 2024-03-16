@@ -20,7 +20,20 @@ if($status){
     if($result){
         $row = mysqli_fetch_assoc($result);
         $income = $row['income'];
-        $subsidy = $income*0.01;     // draft
+        $subsidy;
+
+        if($subsidy >= 400000){
+            $subsidy = 0.1 * $income;
+        }
+        else if($subsidy < 400000 && $subsidy >= 200000){
+            $subsidy = 0.3 * $income;
+        }
+        else if($subsidy < 200000 && $subsidy >= 100000){
+            $subsidy = 0.5 * $income;
+        }
+        else{
+            $subsidy = 0.7 * $income;
+        }
 
         if($user_type == "owner") {
             mysqli_query($conn, "INSERT INTO owner(user_id) VALUES (LAST_INSERT_ID())");
