@@ -1,295 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rental Cart</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/4e97f0f302.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
     <style>
-        table {
+        body {
+            background: #eee;
+        }
+
+        .container {
+            margin-left: 30px !important;
+            max-width: 2000px;
+            padding: 12px;
             width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
         }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
+        .custom-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: darkcyan;
+            padding: 20px;
+            margin: -4vh 0;
         }
 
-        th {
-            background-color: #f2f2f2;
+        .logo img {
+            height: 85px;
+            border-radius: 50%;
         }
 
-        .checkout-btn {
-            background-color: #4CAF50;
+        header {
+            background-color: darkcyan;
+            color: rgb(4, 4, 4);
+            padding: 0px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 95%;
+        }
+
+        header img {
+            height: 70px;
+            border-radius: 50%;
+        }
+
+        .cart a {
+            margin-bottom: 10px;
+            text-decoration: none;
             color: white;
+            font-size: 20px;
+            border: 1px solid black;
             padding: 10px;
-            border: none;
             border-radius: 5px;
-            cursor: pointer;
+            margin-right: 30px;
+        }
+
+        .ratings i {
+            font-size: 16px;
+            color: red;
+        }
+
+        .strike {
+            color: red;
+            text-decoration: line-through;
+        }
+
+        .product-img {
+            width: 100%;
+        }
+
+        .dot {
+            height: 7px;
+            width: 7px;
+            margin-left: 6px;
+            margin-right: 6px;
+            margin-top: 3px;
+            background-color: darkcyan;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .spec {
+            color: #938787;
+            font-size: 15px;
+        }
+
+        h5 {
+            font-weight: 400;
+        }
+
+        .description {
+            font-size: 16px;
+        }
+
+        p {
+            overflow: revert !important;
+            white-space: normal !important;
+        }
+
+        .subtotal,
+        .shipping,
+        .estimated-tax,
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .custom-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: darkcyan;
+            padding: 20px;
+            margin: -4vh 0;
+        }
+
+        .estimated-delivery,
+        .return-policy,
+        .customer-service {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .estimated-delivery span:last-child,
+        .return-policy a,
+        .customer-service a {
+            font-weight: bold;
+        }
+
+        .product-card {
+            max-width: 800px;
+            margin: 0px;
+        }
+
+        .cart-container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 45vh;
+            width: 100%;
+        }
+
+        .cart-summary {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            border-top: 2px solid #ccc;
+            padding: 10px;
+        }
+
+        .checkout-button {
+            text-align: center;
+        }
+
+        .checkout-button a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            text-decoration: none;
         }
     </style>
-    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet'>
-    <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css' rel='stylesheet'>
-    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <style>::-webkit-scrollbar {
-      width: 8px;
-    }
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1; 
-    }
-     
-    
-    *{margin: 0;padding: 0}body{overflow-x: hidden}#bg-div{margin: 0;margin-top:100px;margin-bottom:100px}#border-btm{padding-bottom: 20px;margin-bottom: 0px;box-shadow: 0px 35px 2px -35px lightgray}#test{margin-top: 0px;margin-bottom: 40px;border: 1px solid #FFE082;border-radius: 0.25rem;width: 60px;height: 30px;background-color: #FFECB3}.active1{color: #00C853 !important;font-weight: bold}.bar4{width: 35px;height: 5px;background-color: #ffffff;margin: 6px 0}.list-group .tabs{color: #000000}#menu-toggle{height: 50px}#new-label{padding: 2px;font-size: 10px;font-weight: bold;background-color: red;color: #ffffff;border-radius: 5px;margin-left: 5px}#sidebar-wrapper{min-height: 100vh;margin-left: -15rem;-webkit-transition: margin .25s ease-out;-moz-transition: margin .25s ease-out;-o-transition: margin .25s ease-out;transition: margin .25s ease-out}#sidebar-wrapper .sidebar-heading{padding: 0.875rem 1.25rem;font-size: 1.2rem}#sidebar-wrapper .list-group{width: 15rem}#page-content-wrapper{min-width: 100vw;padding-left: 20px;padding-right: 20px}#wrapper.toggled #sidebar-wrapper{margin-left: 0}.list-group-item.active{z-index: 2;color: #fff;background-color: #fff !important;border-color: #fff !important}@media (min-width: 768px){#sidebar-wrapper{margin-left: 0}#page-content-wrapper{min-width: 0;width: 100%}#wrapper.toggled #sidebar-wrapper{margin-left: -15rem;display: none}}.card0{margin-top: 10px;margin-bottom: 10px}.top-highlight{color: #00C853;font-weight: bold;font-size: 20px}.form-card input, .form-card textarea{padding: 10px 15px 5px 15px;border: none;border: 1px solid lightgrey;border-radius: 6px;margin-bottom: 25px;margin-top: 2px;width: 100%;box-sizing: border-box;font-family: arial;color: #2C3E50;font-size: 14px;letter-spacing: 1px}.form-card input:focus, .form-card textarea:focus{-moz-box-shadow: 0px 0px 0px 1.5px skyblue !important;-webkit-box-shadow: 0px 0px 0px 1.5px skyblue !important;box-shadow: 0px 0px 0px 1.5px skyblue !important;font-weight: bold;border: 1px solid skyblue;outline-width: 0}input.btn-success{height: 50px;color: #ffffff;opacity: 0.9}#below-btn a{font-weight: bold;color: #000000}.input-group{position:relative;width:100%;overflow:hidden}.input-group input{position:relative;height:90px;margin-left: 1px;margin-right: 1px;border-radius:6px;padding-top: 30px;padding-left: 25px}.input-group label{position:absolute;height: 24px;background: none;border-radius: 6px;line-height: 48px;font-size: 15px;color: gray;width:100%;font-weight:100;padding-left: 25px}input:focus + label{color: #1E88E5}#qr{margin-bottom: 150px;margin-top: 50px}</style>
-    </head>
+</head>
 
 <body>
     <header>
         <div class="container">
-            <h1>Rental Cart</h1>
+            <div class="header-content">
+                <div class="logo">
+                    <img src="logo.png" alt="Company Logo">
+                </div>
+                <div>
+                </div>
+                    <div class="cart">
+                        <a href="Equip.html"><i class="icon fa-solid fa-tractor"></i></a>
+                        <a href="profile.html"><i class="icon fa-solid fa-user"></i></a>
+                    </div>
+            </div>
         </div>
     </header>
 
-    <main class="container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody id="cart">
-                <!-- Cart items will be dynamically added here using JavaScript -->
-            </tbody>
-        </table>
-        <!-- Inside your cart.html page -->
-        <button onclick="clearCart()">Clear Cart</button>
-   
-        <div class="total">
-            <br/>
-            <h3>Total: ₹<span id="totalAmount">0</span></h3>
-            <button class="checkout-btn">Proceed to Checkout</button>
-        </div>
-    </main>
-
-    <script src="./script.js"></script>
-    <script>
-        // Fetch the cart items from localStorage
-        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-
-        // Function to update the cart page
-        
-function updateCart() {
-    const cartContainer = document.querySelector('.cart');
-    const totalAmountElement = document.getElementById('totalAmount');
-
-    // Clear the existing cart content
-    cartContainer.innerHTML = '';
-
-    // Iterate through the cart items and display them in the cart
-    cartItems.forEach(item => {
-        const cartItemElement = document.createElement('div');
-        cartItemElement.classList.add('cart-item');
-
-        cartItemElement.innerHTML = `
-            <div class="product-info">
-                <h2>${item.name}</h2>
-                <p class="price">$${item.price}</p>
-                <p class="quantity">Quantity: ${item.quantity}</p>
-            </div>
-        `;
-
-        cartContainer.appendChild(cartItemElement);
-    });
-
-    // Calculate and display the total amount
-    const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-    totalAmountElement.innerText = totalAmount;
-}
-
-
-        // Initialize the cart page when it loads
-        updateCartPage();
-    </script>
-
-
-
-
-
-
-                              
-                                
-                                <body className='snippet-body'>
-                                <div class="container-fluid px-0" id="bg-div">
-    <div class="row justify-content-center">
-        <div class="col-lg-9 col-12">
-            <div class="card card0">
-                <div class="d-flex" id="wrapper">
-                    <!-- Sidebar -->
-                    <div class="bg-light border-right" id="sidebar-wrapper">
-                        <div class="sidebar-heading pt-5 pb-4"><strong>PAY WITH</strong></div>
-                        <div class="list-group list-group-flush"> <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item bg-light">
-                                <div class="list-div my-2">
-                                    <div class="fa fa-home"></div> &nbsp;&nbsp; Bank
+   <div class="w-100 d-flex flex-row justify-content-around">
+        <div class="d-flex flex-column" style="width: 65%;">
+            <div class="container m-4">
+                <div class="w-100 d-flex justify-content-around row">
+                    <div class="col-md-10">
+                        <div class="row p-2 bg-white border rounded product-card">
+                            <div class="col-md-3 mt-1">
+                                <img class="img-fluid img-responsive rounded product-image"
+                                    src="./Firefly tractor working in farm and harvesting rice and picking up 32529.jpg">
+                            </div>
+                            <div class="col-md-6 mt-1">
+                                <h4>Tractor</h4>
+                                <div class="d-flex flex-row">
+                                    <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                            class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span>
                                 </div>
-                            </a> <a data-toggle="tab" href="#menu2" id="tab2" class="tabs list-group-item active1">
-                                <div class="list-div my-2">
-                                    <div class="fa fa-credit-card"></div> &nbsp;&nbsp; Card
-                                </div>
-                            </a> <a data-toggle="tab" href="#menu3" id="tab3" class="tabs list-group-item bg-light">
-                                <div class="list-div my-2">
-                                    <div class="fa fa-qrcode"></div> &nbsp;&nbsp;&nbsp; Visa QR <span id="new-label">NEW</span>
-                                </div>
-                            </a> </div>
-                    </div> <!-- Page Content -->
-                    <div id="page-content-wrapper">
-                        <div class="row pt-3" id="border-btm">
-                            <div class="col-4"> <button class="btn btn-success mt-4 ml-3 mb-3" id="menu-toggle">
-                                    <div class="bar4"></div>
-                                    <div class="bar4"></div>
-                                    <div class="bar4"></div>
-                                </button> </div>
-                            <div class="col-8">
-                                <div class="row justify-content-right">
-                                    <div class="col-12">
-                                        <p class="mb-0 mr-4 mt-4 text-right">farmflow.support@gmail.com</p>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-right">
-                                    <div class="col-12">
-                                        <p class="mb-0 mr-4 text-right"><span class="top-highlight" id="first"></span> </p>
-                                    </div>
+                                <div>
+                                    <p class="text-justify text-truncate para mb-0">There are many variations of passages of
+                                        Lorem Ipsum available, but the majority have suffered alteration in some form, by injected
+                                        humour, or randomised words which don't look even slightly believable.<br><br></p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="text-center" id="test">Pay</div>
-                        </div>
-                        <div class="tab-content">
-                            <div id="menu1" class="tab-pane">
-                                <div class="row justify-content-center">
-                                    <div class="col-11">
-                                        <div class="form-card">
-                                            <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
-                                            <form onsubmit="event.preventDefault()">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="input-group"> <input type="text" id="bk_nm" placeholder="BBB Bank"> <label>BANK NAME</label> </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="input-group"> <input type="text" name="ben_nm" id="ben-nm" placeholder="John Smith"> <label>BENEFICIARY NAME</label> </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="input-group"> <input type="text" name="scode" placeholder="ABCDAB1S" class="placeicon" minlength="8" maxlength="11"> <label>SWIFT CODE</label> </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12"> <input type="submit" value="Amount" id="submit-btn" class="btn btn-success placeicon"> </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <p class="text-center mb-5" id="below-btn"><a href="./Equip.html">Back To Home Page</a></p>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="menu2" class="tab-pane in active">
-                                <div class="row justify-content-center">
-                                    <div class="col-11">
-                                        <div class="form-card">
-                                            <h3 class="mt-0 mb-4 text-center">Enter your card details to pay</h3>
-                                            <form onsubmit="event.preventDefault()">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="input-group"> <input type="text" id="cr_no" placeholder="0000 0000 0000 0000" minlength="19" maxlength="19"> <label>CARD NUMBER</label> </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <div class="input-group"> <input type="text" name="exp" id="exp" placeholder="MM/YY" minlength="5" maxlength="5"> <label>CARD EXPIRY</label> </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="input-group"> <input type="password" name="cvcpwd" placeholder="&#9679;&#9679;&#9679;" class="placeicon" minlength="3" maxlength="3"> <label>CVV</label> </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12"> <input type="submit" value="Amount" class="btn btn-success placeicon" id="submit-bank"> </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <p class="text-center mb-5" id="below-btn"><a href="./Equip.html">Back To Home Page</a></p>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="menu3" class="tab-pane">
-                                <div class="row justify-content-center">
-                                    <div class="col-11">
-                                        <h3 class="mt-0 mb-4 text-center">Scan the QR code to pay</h3>
-                                        <div class="row justify-content-center">
-                                            <div id="qr"> <img src="https://i.imgur.com/DD4Npfw.jpg" width="200px" height="200px"> </div>
-                                        </div>
-                                    </div>
+                            <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                                <div class="d-flex flex-row align-items-center">
+                                    <h6 class="mr-1"> ₹ 1300/per day</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>    
+        <div class="w-25">
+            <div class="cart-container mt-5">
+                <div class="row" style="width: 40rem; justify-content: space-around; margin: 0px !important;">
+                    <div class="col-md-6">
+                        <div class="cart-summary">
+                            <div class="subtotal">
+                                <span>Subtotal:</span>
+                                <span>₹200</span>
+                            </div>
+                            <div class="estimated-tax">
+                                <span>Estimated Subsidy :</span>
+                                <span style="color: red;"> - ₹80</span>
+                            </div>
+                            <div class="order-total">
+                                <span>Order Total:</span>
+                                <span>₹120</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="checkout-button mt-3 w-100">
+                        <a href="checkout.html" class="btn btn-primary">Proceed to Checkout</a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-                                <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
-                                <script type='text/javascript' src='#'></script>
-                                <script type='text/javascript' src='#'></script>
-                                <script type='text/javascript' src='#'></script>
-                                <script type='text/javascript'>$(document).ready(function(){
-    //Menu Toggle Script
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
+   </div> 
 
-    // For highlighting activated tabs
-    $("#tab1").click(function () {
-        $(".tabs").removeClass("active1");
-        $(".tabs").addClass("bg-light"); 
-        $("#tab1").addClass("active1");
-        $("#tab1").removeClass("bg-light");
-    });
-    $("#tab2").click(function () {
-        $(".tabs").removeClass("active1");
-        $(".tabs").addClass("bg-light");
-        $("#tab2").addClass("active1");
-        $("#tab2").removeClass("bg-light");
-    });
-    $("#tab3").click(function () {
-        $(".tabs").removeClass("active1");
-        $(".tabs").addClass("bg-light");
-        $("#tab3").addClass("active1");
-        $("#tab3").removeClass("bg-light");
-    });
-})
-</script>
-<script type='text/javascript'>var myLink = document.querySelector('a[href="#"]');
-    myLink.addEventListener('click', function(e) {
-      e.preventDefault();
-});</script>
+    <script>
+        const quantityInputs = document.querySelectorAll(".cart-table input[type='number']");
+        quantityInputs.forEach(input => {
+            input.addEventListener("change", updateQuantity);
+        });
 
+        function updateQuantity(e) {
+            const input = e.target;
+            const productRow = input.closest("tr");
+            const price = parseFloat(productRow.querySelector(".price").textContent);
+            const quantity = parseInt(input.value);
+
+            const subtotal = price * quantity;
+            productRow.querySelector(".subtotal").textContent = subtotal.toFixed(2);
+
+            updateCartTotal();
+        }
+
+        // Update cart total
+        function updateCartTotal() {
+            const subtotals = document.querySelectorAll(".cart-table .subtotal");
+            
+        }
+    </script>
+    </script>
 </body>
-</html>                                
-                            
-                             
+</html>
