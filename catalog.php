@@ -137,9 +137,6 @@
 
     <div class="container mt-5 mb-5" style="margin-left: 65px !important;" id ="zoom">
     <?php
-                        
-        
-        
         session_start();
         $farmer_id = $_SESSION['farmer_id'];
         $user_id = $_SESSION['user_id'];
