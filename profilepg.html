@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #088484;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar {
+            background-color: #343a40;
+            width: 200px;
+            padding: 20px;
+            box-sizing: border-box;
+            color: #fff;
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 10px;
+            display: block;
+        }
+
+        .sidebar button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .sidebar button:hover {
+            background-color: #495057;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .info-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .info-group label {
+            font-weight: bold;
+            margin-right: 10px;
+            min-width: 150px;
+        }
+
+        .editable {
+            display: flex;
+            align-items: center;
+        }
+
+        .editable span {
+            margin-right: 10px;
+        }
+
+        .change-password {
+            display: none;
+        }
+
+        .profile-pic {
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px; 
+        }
+        
+        .gif-container {
+            flex: 1;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            padding: 20px;
+            width: 100%; 
+            height: auto;
+        }
+        
+        .gif {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="logo.png" alt="Profile Picture" class="profile-pic">
+        </div>
+        <h2>User Profile</h2>
+        <div>
+            <a href="#" class="btn btn-light"><i class="bi bi-cart">cart</i></a>
+            <a href="#" class="btn btn-light"><i class="bi bi-gear">equip</i></a>
+        </div>
+    </header>
+
+    <div class="d-flex flex-grow-1">
+        <div class="sidebar">
+            <img src="https://source.unsplash.com/200x200" alt="Profile Picture" class="profile-pic">
+            <button id="profileBtn">PROFILE</button>
+            <button id="orderHistoryBtn">ORDER HISTORY</button>
+            <button>LOGOUT</button>
+        </div>
+
+        <div class="content">
+            <!-- Profile Content -->
+            <div class="info-group">
+                <label>Username:</label>
+                <span>JohnDoe</span>
+            </div>
+            <div class="info-group">
+                <label>Type:</label>
+                <span>Farmer</span>
+            </div>
+            <div class="info-group">
+                <label>Pan Card Number:</label>
+                <span>ABCDE1234F</span>
+            </div>
+            <div class="info-group">
+                <label>Aadhar Card Number:</label>
+                <span>1234 5678 9012</span>
+            </div>
+            <div class="info-group editable">
+                <label>Phone Number:</label>
+                <span id="phoneNumber">1234567890</span>
+                <button class="btn btn-primary" id="editPhoneBtn">Edit</button>
+            </div>
+            <div class="info-group">
+                <label>Change Password:</label>
+                <button class="btn btn-primary" id="changePasswordBtn">Change Password</button>
+                <div class="change-password">
+                    <input type="password" placeholder="Current Password" id="currentPassword">
+                    <input type="password" placeholder="New Password" id="newPassword">
+                    <input type="password" placeholder="Confirm New Password" id="confirmPassword">
+                    <button class="btn btn-success" id="savePasswordBtn">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="gif-container">
+            <img src="tractor.gif" alt="Your GIF" class="gif">
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"></script>
+    <script>
+        const editPhoneBtn = document.getElementById('editPhoneBtn');
+        const phoneNumber = document.getElementById('phoneNumber');
+        const changePasswordBtn = document.getElementById('changePasswordBtn');
+        const changePasswordDiv = document.querySelector('.change-password');
+        const savePasswordBtn = document.getElementById('savePasswordBtn');
+        const orderHistoryBtn = document.getElementById('orderHistoryBtn');
+        const profileBtn = document.getElementById('profileBtn');
+        const contentSection = document.querySelector('.content');
+        const currentPasswordInput = document.getElementById('currentPassword');
+        const newPasswordInput = document.getElementById('newPassword');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+
+        const profileContent = contentSection.innerHTML;
+
+        let isPhoneEditable = false;
+
+        editPhoneBtn.addEventListener('click', () => {
+            isPhoneEditable = !isPhoneEditable;
+            if (isPhoneEditable) {
+                const newPhoneNumber = prompt('Enter new phone number:', phoneNumber.textContent);
+                if (newPhoneNumber !== null && newPhoneNumber.trim() !== '') {
+                    phoneNumber.textContent = newPhoneNumber;
+                }
+            }
+        });
+
+        changePasswordBtn.addEventListener('click', () => {
+            changePasswordDiv.style.display = changePasswordDiv.style.display === 'none' ? 'block' : 'none';
+        });
+
+        savePasswordBtn.addEventListener('click', () => {
+            const currentPassword = currentPasswordInput.value;
+            const newPassword = newPasswordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            if (newPassword === confirmPassword) {
+                // Here you can perform password update logic
+                alert('Password changed successfully!');
+                changePasswordDiv.style.display = 'none';
+                currentPasswordInput.value = '';
+                newPasswordInput.value = '';
+                confirmPasswordInput.value = '';
+            } else {
+                alert('New password and confirm password do not match.');
+            }
+        });
+
+        orderHistoryBtn.addEventListener('click', () => {
+            const orderHistoryHTML = `
+                <div class="d-flex justify-content-center row single-catalog" style="width:100%; margin-right: auto; margin-top: 45px;">
+                    <div class="col-md-10">
+                        <div class="row p-2 bg-white border rounded">
+                            <div class="col-md-3 mt-1" style="margin-bottom: 0px !important; padding-top: 15px !important; padding-bottom: 15px !important; margin-top: 0px !important;"><img class="img-fluid img-responsive rounded product-image" src="./Firefly tractor working in farm and harvesting rice and picking up 32529.jpg"></div>
+                            <div class="col-md-6 mt-1">
+                                <h4>Model Name</h4>
+                                <div class="d-flex flex-row">
+                                    <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span>
+                                </div>
+                                <div>
+                                    <p class="text-justify text-truncate para mb-0">Description goes here<br><br></p>
+                                </div>
+                            </div>
+                            <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                                <div class="d-flex flex-row align-items-center">
+                                    <h3 class="mr-1">$1000</h3>
+                                </div>
+                                <div class="d-flex flex-column mt-4" style="margin-top: 0px !important;">
+                                    <h6>Start date:</h6>
+                                    <input type="date" placeholder="Start Date" id="startdate-1" class="mb-2">
+                                    <h6>End date:</h6>
+                                    <input type="date" placeholder="End Date" id="enddate-1" class="mb-2">
+                                    <button class="btn btn-primary btn-sm" type="button" onclick="addToCart(1)" style="margin-top: 15px !important;">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            contentSection.innerHTML = orderHistoryHTML;
+        });
+
+        profileBtn.addEventListener('click', () => {
+            contentSection.innerHTML = profileContent;
+        });
+    </script>
+</body>
+</html>
