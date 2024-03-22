@@ -118,13 +118,12 @@
             width: 110px;
             color: #fff;
         }
-
+        
     </style>
 </head>
 
 <body>
     <?php
-        
         include_once "connection.php";
         $product_id = $_GET['product_id'];
         $status = mysqli_query($conn, "SELECT name FROM product WHERE product_id = '$product_id'");
@@ -176,14 +175,15 @@
                     </div>
                     <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                         <div class="d-flex flex-row align-items-center">
-                            <h3 class="mr-1"><?php echo $row['price']; ?></h3>
+                        <h3 class="mr-1" id="price-<?php echo $row['vehicle_id']; ?>"><?php echo $row['price']; ?></h3>
+
                         </div>
                         <div class="d-flex flex-column mt-4" style="margin-top: 0px !important;">
                             <h6>Start date:</h6>
                             <input type="date" placeholder="Start Date" id="startdate-<?php echo $row['vehicle_id']; ?>" class="mb-2">
                              <h6>End date:</h6>
                             <input type="date" placeholder="End Date" id="enddate-<?php echo $row['vehicle_id']; ?>" class="mb-2">
-                            <button class="btn btn-primary btn-sm" type="button" onclick="addToCart(<?php echo $row['vehicle_id']; ?>)" style="margin-top: 15px !important;">Add to Cart</button>
+                            <button class="btn btn-primary btn-sm" type="button"  onclick="addToCart(<?php echo $row['vehicle_id']; ?>)" style="margin-top: 15px !important;">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -200,36 +200,38 @@
     </div>
 
     <script>
-        function addToCart(vehicleId){
-            console.log(vehicleId)
-            var startdate = document.getElementById('startdate-'+vehicleId).value;
-            var enddate = document.getElementById('enddate-'+vehicleId).value;
-            var price = document.getElementById('price').innerHTML
+    function addToCart(vehicleId){
+        console.log(vehicleId);
+        var startdate = document.getElementById('startdate-' + vehicleId).value;
+        var enddate = document.getElementById('enddate-' + vehicleId).value;
+        var price = document.getElementById('price-' + vehicleId).innerText; // Corrected to match the ID in HTML
 
-            if (startdate === "" || enddate === "") {
-                alert("Please select start date and end date.");
-            } else {
-                $.post("addToCart.php",
-                {
-                    vehicle_id: vehicleId,
-                    start_date: startdate,
-                    end_date: enddate, 
-                    price: price
-                },
-                function(data, status){
-                    alert("Data: " + data + "\nStatus: " + status);
-                });
+        if (startdate === "" || enddate === "") {
+            alert("Please select start date and end date.");
+        } else {
+            $.post("addToCart.php",
+            {
+                vehicle_id: vehicleId,
+                start_date: startdate,
+                end_date: enddate, 
+                price: price
+            },
+            function(data, status){
+                console.log("Data: " + data + "\nStatus: " + status); // Output data and status to console for debugging
                 alert("Item added to the cart!");
-            }
+            });
         }
+    }
 
-        function redirectToCart() {
-            window.location.href = 'cart.html';
-        }
+    function redirectToCart() {
+        window.location.href = 'cart_test.php';
+    }
 
-        function backToEquip() {
-            window.location.href = 'Equip.html';
-        }
-    </script>
+    function backToEquip() {
+        window.location.href = 'Equip.html';
+    }
+</script>
+
 </body>
 </html>
+
