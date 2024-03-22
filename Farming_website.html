@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FarmFlow</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/4e97f0f302.js" crossorigin="anonymous"></script>
     <style>
         body {
             background-color:whitesmoke;
@@ -83,6 +84,20 @@
         }
         .p-0{
             margin-top: -20px;
+        }
+
+        #eye{
+            display: flex;
+            position: absolute;
+            top: 9rem;
+            left: 46rem;
+            border: 0px solid;
+            background-color: white;
+        }
+
+        #eye:focus {
+            outline: none; 
+            border: none; 
         }
     </style>
 </head>
@@ -197,6 +212,7 @@
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password">
+                            <button type="button" id="eye" onclick="showpassword(document.getElementById('password').type)"><i class="fa-solid fa-eye"></i></button>
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
@@ -213,6 +229,7 @@
                         <div class="form-group">
                             <label for="passwordSignUp">Password</label>
                             <input type="password" class="form-control" id="passwordSignUp" placeholder="Choose a password" name="passwordSignUp">
+                            <button type="button" id="eye" onclick="showpassword(document.getElementById('passwordSignUp').type)"><i class="fa-solid fa-eye"></i></button>
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
@@ -315,6 +332,20 @@
             alert('Invalid username or password. Please check your input.');
             event.preventDefault();
             return;
+        }
+    }
+
+    function showpassword(type){
+        var password = document.getElementById('password');
+        var passwordSignUp = document.getElementById('passwordSignUp');
+
+        if(type == "password"){
+            password.type = "text";
+            passwordSignUp.type = "text";
+        }
+        else{
+            password.type = "password";
+            passwordSignUp.type = "password";
         }
     }
 </script>
