@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <script src="https://kit.fontawesome.com/4e97f0f302.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: darkcyan;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 90px;
+            width: 90px;
+            border-radius: 50%;
+        }
+
+        header h2{
+            font-family: fansong;
+            font-size: 35px;
+        }
+
+        .cart a {
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            border: 1px solid black;
+            padding: 10px;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+
+        .sidebar {
+            background-color: darkslategray;
+            width: 257px;
+            padding: 18px;
+            box-sizing: border-box;
+            color: #fff;
+        }
+
+        .profile-pic {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 10px;
+        }
+
+        .sidebar button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .sidebar button:hover {
+            background-color: #495057;
+        }
+
+        .main {
+            margin: 20px;
+        }
+
+        #content {
+            display: flex;
+        }
+
+        #box{
+            border: 2px solid black;
+            border-radius: 40px;
+            width: 70%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 0px 30px;
+            box-shadow: 0px 0px 35px grey;
+        }
+
+        .usercontent{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            width: 50%;
+        }
+
+        .usercontent h3{
+            margin: 0px;
+            font-family: ui-monospace;
+            font-size: 18px;
+            text-align: start;
+            padding: 20px 10px;
+            width: 75%;
+        }
+
+        .usercontent p{
+            margin: 0px;
+            padding: 20px 0px;
+            font-size: 18px;
+            font-family: serif;
+            text-align: start;
+            width: 100%;
+        }
+
+        .avatar{
+            width: 50%;
+        }
+
+        .avatar img{
+            width: 100%;
+        }
+
+        #userinfo{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="logo.png" alt="Comapny Logo" class="logo">
+        </div>
+        <h2>DASHBOARD</h2>
+        <div class="cart">
+            <a href="Equip.html"><i class="icon fa-solid fa-tractor"></i></a>
+            <a href="cart.html" class="icon"><i class="fa-solid fa-cart-shopping"></i></a>
+        </div>
+    </header>
+    <div id="content">
+        <div class="sidebar">
+            <img src="profilepic.jpg" att="Profile Pic" class="profile-pic">
+            <button id="profile">PROFILE</button>
+            <button id="updateprofile">UPDATE PROFILE</button>
+            <button id="orderHistory">ORDER HISTORY</button>
+            <a href="logout.php"><button>LOGOUT</button></a>
+        </div>
+    
+        <div class="main">
+            <div>
+                <h1 style="font-family: auto; margin: 0px; padding: 10px 0px 0px 40px;">Welcome, Himanshi!👋</h1>
+            </div>
+            <div id="userinfo">
+                <div id="box">
+                    <div class="usercontent">
+                        <h3>User Name</h3>
+                        <h3>Category</h3>
+                        <h3>Aadhar Card Number</h3>
+                        <h3>Pan Card Number</h3>
+                        <h3>Phone Number</h3>
+                    </div>
+
+                    <div class="usercontent">
+                        <p>Himanshi</p>
+                        <p>Farmer</p>
+                        <p>1234 5678 9012</p>
+                        <p>ABCDE1234F</p>
+                        <p>9125555228</p>
+                    </div>
+                </div>
+                <div class="avatar">
+                    <img src="farmer.jpg" alt="avatar" style="border-radius: 50%; border: 2px solid black;">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
