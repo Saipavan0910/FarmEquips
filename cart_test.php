@@ -13,6 +13,11 @@
 
     <style>
         /* Your CSS styles */
+
+        .col-md-10{
+            padding: 15px;
+        }
+
         body {
             background: #eee;
         }
@@ -177,10 +182,6 @@
             color: #fff;
             text-decoration: none;
         }
-
-        .col-md-10{
-            padding: 15px;
-        }
     </style>
 </head>
 
@@ -195,77 +196,96 @@
             <div class="container m-4">
                 <div class="w-100 d-flex justify-content-around row">
                     <?php
-                    session_start();
-
                     // Include database connection
                     include_once "connection.php";
 
-                    // Check if user is logged in
-                    if (isset($_SESSION['user_id'])) {
-                        $user_id = $_SESSION['user_id'];
+                    // Query to fetch all cart items
+                    $query = "SELECT l.line_id, l.vehicle_id, l.start_date, l.end_date, l.price, v.model, v.description 
+                              FROM line_item l
+                              INNER JOIN vehicle v ON l.vehicle_id = v.vehicle_id";
 
-                        // Query to fetch cart items for the logged-in user
-                        $query = "SELECT l.line_id, l.vehicle_id, l.start_date, l.end_date, l.price, v.model, v.description 
-                                  FROM line_item l
-                                  INNER JOIN vehicle v ON l.vehicle_id = v.vehicle_id
-                                  WHERE l.user_id = $user_id";
+                    $result = mysqli_query($conn, $query);
 
-                        $result = mysqli_query($conn, $query);
+                    // Check if there are any cart items
+                    if (mysqli_num_rows($result) > 0) {
+                        // Loop through cart items
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            // Extract data from the current row
+                            $lineId = $row['line_id'];
+                            $vehicleId = $row['vehicle_id'];
+                            $startDate = $row['start_date'];
+                            $endDate = $row['end_date'];
+                            $price = $row['price'];
+                            $model = $row['model'];
+                            $description = $row['description'];
 
-                        // Check if there are any cart items
-                        if (mysqli_num_rows($result) > 0) {
-                            // Loop through cart items
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                // Extract data from the current row
-                                $lineId = $row['line_id'];
-                                $vehicleId = $row['vehicle_id'];
-                                $startDate = $row['start_date'];
-                                $endDate = $row['end_date'];
-                                $price = $row['price'];
-                                $model = $row['model'];
-                                $description = $row['description'];
-
-                                // Generate HTML for each cart item
-                                echo "<div class='col-md-10'>";
-                                echo "<div class='row p-2 bg-white border rounded product-card'>";
-                                echo "<div class='col-md-3 mt-1'>";
-                                echo "<img class='img-fluid img-responsive rounded product-image' src='./Firefly tractor working in farm and harvesting rice and picking up 32529.jpg'>";
-                                echo "</div>";
-                                echo "<div class='col-md-6 mt-1'>";
-                                echo "<h4>$model</h4>";
-                                echo "<div class='d-flex flex-row'>";
-                                echo "<div class='ratings mr-2'><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i></div><span>310</span>";
-                                echo "</div>";
-                                echo "<div>";
-                                echo "<p class='text-justify text-truncate para mb-0'>$description<br><br></p>";
-                                echo "</div>";
-                                echo "</div>";
-                                echo "<div class='align-items-center align-content-center col-md-3 border-left mt-1'>";
-                                echo "<div class='d-flex flex-row align-items-center'>";
-                                echo "<h6 class='mr-1'> ₹ $price/per day</h6>";
-                                echo "</div>";
-                                echo "<div class='d-flex flex-column mt-4' style='margin-top: 0px !important;'>";
-                                echo "<h6>Start date: $startDate</h6>";
-                                echo "<h6>End date: $endDate</h6>";
-                                echo "<button class='btn btn-danger btn-sm' type='button' onclick='removeFromCart($lineId)'>Remove</button>";
-                                echo "</div>";
-                                echo "</div>";
-                                echo "</div>";
-                                echo "</div>";
-                            }
-                        } else {
-                            echo "<p>No items in the cart.</p>";
+                            // Generate HTML for each cart item
+                            echo "<div class='col-md-10'>";
+                            echo "<div class='row p-2 bg-white border rounded product-card'>";
+                            echo "<div class='col-md-3 mt-1'>";
+                            echo "<img class='img-fluid img-responsive rounded product-image' src='./Firefly tractor working in farm and harvesting rice and picking up 32529.jpg'>";
+                            echo "</div>";
+                            echo "<div class='col-md-6 mt-1'>";
+                            echo "<h4>$model</h4>";
+                            echo "<div class='d-flex flex-row'>";
+                            echo "<div class='ratings mr-2'><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i></div><span>310</span>";
+                            echo "</div>";
+                            echo "<div>";
+                            echo "<p class='text-justify text-truncate para mb-0'>$description<br><br></p>";
+                            echo "</div>";
+                            echo "</div>";
+                            echo "<div class='align-items-center align-content-center col-md-3 border-left mt-1'>";
+                            echo "<div class='d-flex flex-row align-items-center'>";
+                            echo "<h6 class='mr-1'> ₹ $price/per day</h6>";
+                            echo "</div>";
+                            echo "<div class='d-flex flex-column mt-4' style='margin-top: 0px !important;'>";
+                            echo "<h6>Start date: $startDate</h6>";
+                            echo "<h6>End date: $endDate</h6>";
+                            echo "<button class='btn btn-danger btn-sm' type='button' onclick='removeFromCart($lineId)'>Remove</button>";
+                            echo "</div>";
+                            echo "</div>";
+                            echo "</div>";
+                            echo "</div>";
                         }
                     } else {
-                        // User is not logged in
-                        echo "<p>Please log in to view your cart.</p>";
+                        echo "<p>No items in the cart.</p>";
                     }
                     ?>
+                    
                 </div>
             </div>
         </div>
         <div class="w-25">
             <!-- Your cart summary and checkout button -->
+            <div class="w-25">
+            <div class="cart-container mt-5">
+                <div class="row" style="width: 40rem; justify-content: space-around; margin: 0px !important;">
+                    <div class="col-md-6">
+                        <div class="cart-summary">
+                            <div class="subtotal">
+                                <span>Subtotal:</span>
+                                <span>₹200</span>
+                            </div>
+                            <div class="estimated-tax">
+                                <span>Estimated Subsidy :</span>
+                                <span style="color: red;"> - ₹80</span>
+                            </div>
+                            <div class="order-total">
+                                <span>Order Total:</span>
+                                <span>₹120</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="checkout-button mt-3 w-100">
+                        <a href="checkout.html" class="btn btn-primary">Proceed to Checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div> 
+
         </div>
     </div>
 
@@ -279,5 +299,4 @@
 </body>
 
 </html>
-
 
