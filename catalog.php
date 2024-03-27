@@ -200,7 +200,8 @@
     </div>
 
     <script>
-    function addToCart(vehicleId){
+    function addToCart(vehicleId)
+    {
         console.log(vehicleId);
         var startdate = document.getElementById('startdate-' + vehicleId).value;
         var enddate = document.getElementById('enddate-' + vehicleId).value;
