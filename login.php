@@ -10,10 +10,12 @@ $status = mysqli_query($conn, "select user_type, user_id from user_details where
 $matched_user = mysqli_num_rows($status);
 
 if($matched_user == 0){
-    echo "Invalid Login";
+    echo '<script>';
+    echo 'alert("Invalid Login Credentials!");';
+    echo 'window.location.href = "Farming_website.html";';
+    echo '</script>';
 } else{
     $row=mysqli_fetch_row($status);
-    echo "Login Successfull!";
     echo  $row[0];
 
     session_start();

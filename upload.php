@@ -15,10 +15,16 @@ $owner_id = $_SESSION['owner_id'];
 $status = mysqli_query($conn, "insert into vehicle (owner_id, vehicle_num, product_id, model,  description, price, startdate, enddate) values ('$owner_id', '$vehiclenumber', '$product_id', '$model', '$description', '$price', '$startdate', '$enddate')");
 
 if($status){
-    echo "Regsitration Successful";
+    echo '<script>';
+    echo 'alert("Equipment Registered Successfully!");';
+    echo 'window.location.href = "upload.html";';
+    echo '</script>';
 }
 else{
-    echo "Registration Unsuccessful. Please Try Again!!";
+    echo '<script>';
+    echo 'alert("Equipment Registration Failed");';
+    echo 'window.location.href = "upload.html";';
+    echo '</script>';
 }
 
 ?>
