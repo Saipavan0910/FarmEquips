@@ -9,7 +9,6 @@
   <style>
     body {
       padding: 20px;
-      background-image: url(''); /* Change the background image path */
       background-size: cover;
       background-repeat: no-repeat;
       color: #333;
@@ -68,7 +67,7 @@
     text-decoration: none;
     color: white;
     font-size: 20px;
-    border: 1px solid black;/* Different background color for the cart */
+    border: 1px solid black;
     padding: 10px;
     border-radius: 5px;
     margin-right: 30px;
@@ -88,7 +87,7 @@
     <img src="logo.png" alt="Company Logo" class="logo">
     <h2 class="mb-4" style="text-align: center;"><strong>UPLOAD EQUIPMENT</strong></h2>
     <div>
-      <a href="profile.html" class="icon"><i class="fa-solid fa-user"></i></a>
+      <a href="ownerprofile.php" class="icon"><i class="fa-solid fa-user"></i></a>
       <a href="logout.php" class="icon"><i class="fa-solid fa-power-off"></i></a>
     </div>
     
@@ -157,6 +156,18 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
   <script>
+
+    var currentDate = new Date().toISOString().split('T')[0];
+
+    document.getElementById("startdate").min = currentDate;
+
+    document.getElementById("startdate").addEventListener("change", function() {
+        document.getElementById("enddate").min = this.value || currentDate;
+    });
+
+  </script>
+
+  <script>
     function change(element){
       element.style = "color: black; font-style: none;"
     }
@@ -169,7 +180,7 @@
 
     function validateForm() {
       var vehicleNumber = document.getElementById('vehicleNumber').value;
-      var vehicleNumberRegex = /^[a-zA-Z]{2}\d{2}[a-zA-Z]{2}\d{4}$/;
+      var vehicleNumberRegex = /^[a-zA-Z]{2}\s{0,1}\d{2}\s{0,1}[a-zA-Z]{2}\s{0,1}\d{4}$/;
       var errors = [];
       if (!vehicleNumberRegex.test(vehicleNumber)) {
         errors.push('Invalid Vehicle Number.');

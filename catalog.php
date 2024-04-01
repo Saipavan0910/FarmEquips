@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/4e97f0f302.js" crossorigin="anonymous"></script>
 
     <style>
         body {
@@ -20,13 +21,12 @@
             align-items: center;
             justify-content: space-between;
             background-color: darkcyan;
-            padding: 20px;
-            margin: -4vh 0;
+            padding: 0px;
+            margin: 0px;
         }
 
         .logo {
-            margin-top: 20px;
-            margin-left: 20px;
+            margin: 10px 10px 10px 25px;
             max-width: 90px;
             border-radius: 50%;
         }
@@ -44,6 +44,17 @@
         .strike {
             color: red;
             text-decoration: line-through;
+        }
+
+        .icon a {
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            border: 1px solid black;
+            padding: 10px;
+            border-radius: 5px;
+            margin-right: 20px;
         }
 
         .product-img {
@@ -131,7 +142,11 @@
     ?>
     <div class="custom-header">
         <img src="./logo.png" alt="Company Logo" class="logo">
-        <h1 class="mb-4" style="text-align:center; color: white; margin-top: 40px; margin-right: 40% !important;"><strong><?php echo $row['name']; ?></strong></h1>
+        <h1 class="mb-4" style="text-align:center; color: white; margin-top: 20px;"><strong><?php echo $row['name']; ?></strong></h1>
+        <div class="icon">
+            <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a href="profile.php"><i class="fa-solid fa-user"></i></a>
+        </div>
     </div>
 
     <div class="container mt-5 mb-5" style="margin-left: 65px !important;" id ="zoom">
@@ -143,7 +158,9 @@
                     v.description,
                     v.price,
                     v.vehicle_id,
-                    v.model
+                    v.model, 
+                    v.startdate, 
+                    v.enddate
                 FROM
                     vehicle AS v
                 INNER JOIN OWNER AS o
@@ -180,9 +197,9 @@
                         </div>
                         <div class="d-flex flex-column mt-4" style="margin-top: 0px !important;">
                             <h6>Start date:</h6>
-                            <input type="date" placeholder="Start Date" id="startdate-<?php echo $row['vehicle_id']; ?>" class="mb-2">
-                             <h6>End date:</h6>
-                            <input type="date" placeholder="End Date" id="enddate-<?php echo $row['vehicle_id']; ?>" class="mb-2">
+                            <input type="date" placeholder="Start Date" id="startdate-<?php echo $row['vehicle_id']; ?>" class="mb-2" min="<?php  echo $row['startdate']; ?>" max="<?php  echo $row['enddate']; ?>" onchange="dateValidate(<?php echo $row['vehicle_id']; ?>)">
+                            <h6>End date:</h6>
+                            <input type="date" placeholder="End Date" id="enddate-<?php echo $row['vehicle_id']; ?>" class="mb-2" max="<?php  echo $row['enddate']; ?>">
                             <button class="btn btn-primary btn-sm" type="button"  onclick="addToCart(<?php echo $row['vehicle_id']; ?>)" style="margin-top: 15px !important;">Add to Cart</button>
                         </div>
                     </div>
@@ -199,7 +216,12 @@
         <button id="goToCartButton" onclick="redirectToCart()">Go to Cart</button>
     </div>
 
-    <script>
+<script>
+    function dateValidate(vehicleId){
+        const date = document.getElementById('startdate-' + vehicleId).value;
+        document.getElementById('enddate-' + vehicleId).setAttribute('min', date);
+    }
+
     function addToCart(vehicleId)
     {
         console.log(vehicleId);

@@ -19,32 +19,20 @@ if($status){
 
     if($result){
         $row = mysqli_fetch_assoc($result);
-        $income = $row['income'];
-        $subsidy;
-
-        if($subsidy >= 400000){
-            $subsidy = 0.1 * $income;
-        }
-        else if($subsidy < 400000 && $subsidy >= 200000){
-            $subsidy = 0.3 * $income;
-        }
-        else if($subsidy < 200000 && $subsidy >= 100000){
-            $subsidy = 0.5 * $income;
-        }
-        else{
-            $subsidy = 0.7 * $income;
-        }
 
         if($user_type == "owner") {
             mysqli_query($conn, "INSERT INTO owner(user_id) VALUES (LAST_INSERT_ID())");
         } else {
-            mysqli_query($conn, "INSERT INTO farmer(user_id, income, subsidy) VALUES (LAST_INSERT_ID(), '$income', '$subsidy')");
+            mysqli_query($conn, "INSERT INTO farmer(user_id, income) VALUES (LAST_INSERT_ID(), '$income')");
         }        
     }
 
     header("location: Farming_website.html");
 }
 else {
-    echo "Registration Unsuccessful. Please Try Again!!";
+    echo '<script>';
+    echo 'alert("Registration Unsuccessful");';
+    echo 'window.location.href = "Farming_website.html";';
+    echo '</script>';
 }
 ?>
