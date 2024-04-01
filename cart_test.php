@@ -14,7 +14,7 @@
     <style>
         /* Your CSS styles */
 
-        .col-md-10{
+        .col-md-10 {
             padding: 15px;
         }
 
@@ -152,7 +152,7 @@
             margin: 0px;
         }
 
-        .cart-container{
+        .cart-container {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -199,12 +199,25 @@
                     // Include database connection
                     include_once "connection.php";
 
+                    // Check if the form is submitted for item removal
+                    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['lineId'])) {
+                        // Sanitize the input
+                        $lineId = mysqli_real_escape_string($conn, $_POST['lineId']);
+
+                        // Delete the item from the cart
+                        $deleteQuery = "DELETE FROM line_item WHERE line_id = '$lineId'";
+                        mysqli_query($conn, $deleteQuery);
+                    }
+
                     // Query to fetch all cart items
                     $query = "SELECT l.line_id, l.vehicle_id, l.start_date, l.end_date, l.price, v.model, v.description 
                               FROM line_item l
                               INNER JOIN vehicle v ON l.vehicle_id = v.vehicle_id";
 
                     $result = mysqli_query($conn, $query);
+
+                    // Initialize subtotal variable
+                    $subtotal = 0;
 
                     // Check if there are any cart items
                     if (mysqli_num_rows($result) > 0) {
@@ -218,6 +231,9 @@
                             $price = $row['price'];
                             $model = $row['model'];
                             $description = $row['description'];
+
+                            // Add item price to subtotal
+                            $subtotal += $price;
 
                             // Generate HTML for each cart item
                             echo "<div class='col-md-10'>";
@@ -241,7 +257,10 @@
                             echo "<div class='d-flex flex-column mt-4' style='margin-top: 0px !important;'>";
                             echo "<h6>Start date: $startDate</h6>";
                             echo "<h6>End date: $endDate</h6>";
-                            echo "<button class='btn btn-danger btn-sm' type='button' onclick='removeFromCart($lineId)'>Remove</button>";
+                            echo "<form action='remove_cart.php' method='post'>";
+                            echo "<input type='hidden' name='lineId' value='$lineId'>";
+                            echo "<button class='btn btn-danger btn-sm' type='submit'>Remove</button>";
+                            echo "</form>";
                             echo "</div>";
                             echo "</div>";
                             echo "</div>";
@@ -251,52 +270,72 @@
                         echo "<p>No items in the cart.</p>";
                     }
                     ?>
-                    
+
                 </div>
             </div>
         </div>
         <div class="w-25">
             <!-- Your cart summary and checkout button -->
             <div class="w-25">
-            <div class="cart-container mt-5">
-                <div class="row" style="width: 40rem; justify-content: space-around; margin: 0px !important;">
-                    <div class="col-md-6">
-                        <div class="cart-summary">
-                            <div class="subtotal">
-                                <span>Subtotal:</span>
-                                <span>₹200</span>
-                            </div>
-                            <div class="estimated-tax">
-                                <span>Estimated Subsidy :</span>
-                                <span style="color: red;"> - ₹80</span>
-                            </div>
-                            <div class="order-total">
-                                <span>Order Total:</span>
-                                <span>₹120</span>
+                <div class="cart-container mt-5">
+                    <div class="row" style="width: 40rem; justify-content: space-around; margin: 0px !important;">
+                        <div class="col-md-6">
+                            <div class="cart-summary">
+                                <div class="subtotal">
+                                    <span>Subtotal:</span>
+                                    <span>₹<?php echo $subtotal; ?></span>
+                                </div>
+                                <div class="estimated-tax">
+                                    <span>Estimated Subsidy :</span>
+                                    <span style="color: red;"> - ₹80</span>
+                                </div>
+                                <div class="order-total">
+                                    <span>Order Total:</span>
+                                    <span>₹<?php echo $subtotal - 80; ?></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="checkout-button mt-3 w-100">
-                        <a href="checkout.html" class="btn btn-primary">Proceed to Checkout</a>
+                    <div class="col">
+                        <div class="checkout-button mt-3 w-100">
+                            <a href="checkout.html" class="btn btn-primary">Proceed to Checkout</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-   </div> 
-
-        </div>
     </div>
 
-    <script>
-        // JavaScript function to remove item from cart
-        function removeFromCart(lineId) {
-            // Add logic to remove the item from the cart
-            // You can use AJAX to update the cart without reloading the page
-        }
-    </script>
 </body>
 
 </html>
 
+<!-- <?php
+                            
+        $status = mysqli_query($conn,"SELECT * from farmer");
+        $row = mysqli_fetch_assoc(status);
+        $farmerId = row['$farmer_id']; 
+        
+        $incomeQuery = "SELECT income FROM farmer WHERE farmer_id = '$farmerId'";
+        $incomeResult = mysqli_query($conn, $incomeQuery);
+        if ($incomeResult && mysqli_num_rows($incomeResult) > 0) {
+            $incomeRow = mysqli_fetch_assoc($incomeResult);
+            $income = $incomeRow['income'];
+
+            // Calculate subsidy amount based on the user's income
+            $subsidy_amount = 0;
+            if ($income < 100000) {
+                $subsidy_amount = 10000 * 0.70; 
+            } elseif ($income >= 100000 && $income < 200000) {
+                $subsidy_amount = 10000 * 0.50; 
+            } elseif ($income >= 200000 && $income < 400000) {
+                $subsidy_amount = 10000 * 0.30; 
+            } elseif ($income >= 400000) {
+                $subsidy_amount = 10000 * 0.10; 
+            }
+            ?>
+            <div class="estimated-tax">
+                <span>Estimated Subsidy :</span>
+                <span style="color: red;"> - ₹<?php echo $subsidy_amount; ?></span>
+            </div>
+        <?php } ?> -->
