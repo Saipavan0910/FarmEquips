@@ -247,7 +247,7 @@
     }
 
     function redirectToCart() {
-        window.location.href = 'cart_test.php';
+        window.location.href = './cart_test.php';
     }
 
     function backToEquip() {

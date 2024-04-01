@@ -21,11 +21,7 @@
     </head>
 
 <body>
-    <header>
-        <div class="container">
-            <h1>Checkout</h1>
-        </div>
-    </header>
+    
 
 
     <script src="./script.js"></script>
@@ -73,12 +69,11 @@ function updateCart() {
 
 
 <?php
-include 'cart_test.php';
+include 'cart_test.php'
 ?>
-                              
-                                
-                                <body className='snippet-body'>
-                                <div class="container-fluid px-0" id="bg-div">
+                                        
+<body className='snippet-body'>
+<div class="container-fluid px-0" id="bg-div">
     <div class="row justify-content-center">
         <div class="col-lg-9 col-12">
             <div class="card card0">
@@ -144,7 +139,7 @@ include 'cart_test.php';
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-12"> <input type="submit" value="<?php echo $Total; ?>" id="submit-btn" class="btn btn-success placeicon"> </div>
+                                                    <div class="col-md-12"> <input type="submit" value="₹<?php echo $Total; ?>" id="submit-btn" class="btn btn-success placeicon"> </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
@@ -176,7 +171,7 @@ include 'cart_test.php';
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-12"> <input type="submit" value="Amount" class="btn btn-success placeicon" id="submit-bank"> </div>
+                                                    <div class="col-md-12"> <input type="submit" value="₹<?php echo $Total; ?>" class="btn btn-success placeicon" id="submit-bank"> </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
