@@ -72,7 +72,9 @@ function updateCart() {
 
 
 
-
+<?php
+include 'cart_test.php';
+?>
                               
                                 
                                 <body className='snippet-body'>
@@ -142,7 +144,7 @@ function updateCart() {
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-12"> <input type="submit" value="Amount" id="submit-btn" class="btn btn-success placeicon"> </div>
+                                                    <div class="col-md-12"> <input type="submit" value="<?php echo $Total; ?>" id="submit-btn" class="btn btn-success placeicon"> </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
