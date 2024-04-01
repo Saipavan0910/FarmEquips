@@ -47,6 +47,7 @@
             background-color: darkcyan;
             color: rgb(4, 4, 4);
             padding: 0px;
+            width: 81rem;
         }
 
         .header-content {
@@ -178,7 +179,7 @@
         .checkout-button a {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #000;
+            background-color: #007bff;
             color: #fff;
             text-decoration: none;
         }
@@ -188,7 +189,17 @@
 <body>
 
     <header>
-        <!-- Your header content -->
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="logo.png" alt="Company Logo">
+                </div>
+                    <div class="cart">
+                        <a href="Equip.html"><i class="icon fa-solid fa-tractor"></i></a>
+                        <a href="profile.php" class="icon"><i class="fa-solid fa-user"></i></a>
+                    </div>
+            </div>
+        </div>
     </header>
 
     <div class="w-100 d-flex flex-row justify-content-around">
@@ -285,57 +296,56 @@
                                     <span>Subtotal:</span>
                                     <span>₹<?php echo $subtotal; ?></span>
                                 </div>
-                                <div class="estimated-tax">
-                                    <span>Estimated Subsidy :</span>
-                                    <span style="color: red;"> - ₹80</span>
-                                </div>
+                                
+                                <?php
+                            
+                                $status = mysqli_query($conn,"SELECT * from farmer");
+                                $row = mysqli_fetch_assoc($status);
+                                $farmer_id = $row['farmer_id']; 
+                                
+                                $incomeQuery = "SELECT income FROM farmer WHERE farmer_id = '$farmer_id'";
+                                $incomeResult = mysqli_query($conn, $incomeQuery);
+                                if ($incomeResult && mysqli_num_rows($incomeResult) > 0) {
+                                    $incomeRow = mysqli_fetch_assoc($incomeResult);
+                                    $income = $incomeRow['income'];
+
+                                    // Calculate subsidy amount based on the user's income
+                                    $subsidy_amount = 0;
+                                    if ($income < 100000) {
+                                        $subsidy_amount = $subtotal * 0.70; 
+                                    } elseif ($income >= 100000 && $income < 200000) {
+                                        $subsidy_amount = $subtotal * 0.50; 
+                                    } elseif ($income >= 200000 && $income < 400000) {
+                                        $subsidy_amount = $subtotal * 0.30; 
+                                    } elseif ($income >= 400000) {
+                                        $subsidy_amount = $subtotal * 0.10; 
+                                    }
+                                    ?>
+                                    <div class="estimated-tax">
+                                        <span>Estimated Subsidy :</span>
+                                        <span style="color: red;"> - ₹<?php echo $subsidy_amount; ?></span>
+                                    </div>
+                                <?php } ?>
+
+
                                 <div class="order-total">
                                     <span>Order Total:</span>
-                                    <span>₹<?php echo $subtotal - 80; ?></span>
+                                    <span>₹<?php $Total= $subtotal - $subsidy_amount; echo $Total?></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="checkout-button mt-3 w-100">
-                            <a href="checkout.html" class="btn btn-primary">Proceed to Checkout</a>
+                            <a href="checkout.php" class="btn btn-primary" style="width: 160px;">Proceed to Checkout</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>  
 
 </body>
 
 </html>
 
-<!-- <?php
-                            
-        $status = mysqli_query($conn,"SELECT * from farmer");
-        $row = mysqli_fetch_assoc(status);
-        $farmerId = row['$farmer_id']; 
-        
-        $incomeQuery = "SELECT income FROM farmer WHERE farmer_id = '$farmerId'";
-        $incomeResult = mysqli_query($conn, $incomeQuery);
-        if ($incomeResult && mysqli_num_rows($incomeResult) > 0) {
-            $incomeRow = mysqli_fetch_assoc($incomeResult);
-            $income = $incomeRow['income'];
-
-            // Calculate subsidy amount based on the user's income
-            $subsidy_amount = 0;
-            if ($income < 100000) {
-                $subsidy_amount = 10000 * 0.70; 
-            } elseif ($income >= 100000 && $income < 200000) {
-                $subsidy_amount = 10000 * 0.50; 
-            } elseif ($income >= 200000 && $income < 400000) {
-                $subsidy_amount = 10000 * 0.30; 
-            } elseif ($income >= 400000) {
-                $subsidy_amount = 10000 * 0.10; 
-            }
-            ?>
-            <div class="estimated-tax">
-                <span>Estimated Subsidy :</span>
-                <span style="color: red;"> - ₹<?php echo $subsidy_amount; ?></span>
-            </div>
-        <?php } ?> -->
