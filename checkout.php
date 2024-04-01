@@ -25,44 +25,7 @@
 
 
     <script src="./script.js"></script>
-    <script>
-        // Fetch the cart items from localStorage
-        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
-        // Function to update the cart page
-        
-function updateCart() {
-    const cartContainer = document.querySelector('.cart');
-    const totalAmountElement = document.getElementById('totalAmount');
-
-    // Clear the existing cart content
-    cartContainer.innerHTML = '';
-
-    // Iterate through the cart items and display them in the cart
-    cartItems.forEach(item => {
-        const cartItemElement = document.createElement('div');
-        cartItemElement.classList.add('cart-item');
-
-        cartItemElement.innerHTML = `
-            <div class="product-info">
-                <h2>${item.name}</h2>
-                <p class="price">$${item.price}</p>
-                <p class="quantity">Quantity: ${item.quantity}</p>
-            </div>
-        `;
-
-        cartContainer.appendChild(cartItemElement);
-    });
-
-    // Calculate and display the total amount
-    const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-    totalAmountElement.innerText = totalAmount;
-}
-
-
-        // Initialize the cart page when it loads
-        updateCartPage();
-    </script>
 
 
 
