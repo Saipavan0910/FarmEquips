@@ -22,14 +22,7 @@
 
 <body>
     
-
-
     <script src="./script.js"></script>
-
-
-
-
-
 
 <?php
 include 'cart_test.php'
