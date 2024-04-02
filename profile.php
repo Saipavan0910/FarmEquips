@@ -338,7 +338,7 @@ $row = mysqli_fetch_assoc($status);
                 profile.style.display = 'inherit';
             }
             else{
-                order.style.display = 'inherit';
+                order.style.display = 'flex';
                 profile.style.display = 'none';
             }
         }

@@ -37,8 +37,6 @@ if ($matched_order == 0) {
     $order_id = $orderRow[0];
 }
 
-
-
 // insert line item
 $insertLineItem = mysqli_query($conn, 
             "INSERT INTO line_item (order_id, vehicle_id, start_date, end_date, price) 

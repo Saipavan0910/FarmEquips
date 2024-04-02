@@ -10,7 +10,18 @@ $pan = $_POST['panNumber'];
 
 include_once "connection.php";
 
-$status = mysqli_query($conn, "insert into user_details (username, password, user_type, aadhar_card, pan_card, location, phone_number) values ('$username', '$password', '$user_type', '$aadhar', '$pan', '$location', '$phone')");
+$check = mysqli_query($conn, "SELECT * FROM pan_details WHERE pancardnum = '$pan'");
+
+if(mysqli_num_rows($check) > 0){
+    $status = mysqli_query($conn, "insert into user_details (username, password, user_type, aadhar_card, pan_card, location, phone_number) values ('$username', '$password', '$user_type', '$aadhar', '$pan', '$location', '$phone')");
+}
+else{
+    echo '<script>';
+    echo 'alert("Pan Card Number does not Exist");';
+    echo 'window.location.href = "Farming_website.html";';
+    echo '</script>';
+}
+
 
 if($status){
     echo "Regsitration Successful";

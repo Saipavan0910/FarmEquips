@@ -144,7 +144,7 @@
         <img src="./logo.png" alt="Company Logo" class="logo">
         <h1 class="mb-4" style="text-align:center; color: white; margin-top: 20px;"><strong><?php echo $row['name']; ?></strong></h1>
         <div class="icon">
-            <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a href="cart_test.php"><i class="fa-solid fa-cart-shopping"></i></a>
             <a href="profile.php"><i class="fa-solid fa-user"></i></a>
         </div>
     </div>
@@ -184,7 +184,7 @@
                     <div class="col-md-6 mt-1">
                         <h4><?php echo $row['model']; ?></h4>
                         <div class="d-flex flex-row">
-                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span>
+                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span>
                         </div>
                         <div>
                             <p class="text-justify text-truncate para mb-0"><?php echo $row['description']; ?><br><br></p>
@@ -192,7 +192,7 @@
                     </div>
                     <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                         <div class="d-flex flex-row align-items-center">
-                        <h3 class="mr-1" id="price-<?php echo $row['vehicle_id']; ?>"><?php echo $row['price']; ?></h3>
+                        <h3 class="mr-1" id="price-<?php echo $row['vehicle_id']; ?>"><?php echo $row['price']; ?>/Per Day</h3>
 
                         </div>
                         <div class="d-flex flex-column mt-4" style="margin-top: 0px !important;">
