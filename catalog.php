@@ -141,7 +141,7 @@
         $row = mysqli_fetch_array($status);
     ?>
     <div class="custom-header">
-        <img src="./logo.png" alt="Company Logo" class="logo">
+        <img src="./images/equipment/logo.png" alt="Company Logo" class="logo">
         <h1 class="mb-4" style="text-align:center; color: white; margin-top: 20px;"><strong><?php echo $row['name']; ?></strong></h1>
         <div class="icon">
             <a href="cart_test.php"><i class="fa-solid fa-cart-shopping"></i></a>
@@ -224,10 +224,9 @@
 
     function addToCart(vehicleId)
     {
-        console.log(vehicleId);
         var startdate = document.getElementById('startdate-' + vehicleId).value;
         var enddate = document.getElementById('enddate-' + vehicleId).value;
-        var price = document.getElementById('price-' + vehicleId).innerText; // Corrected to match the ID in HTML
+        var price = document.getElementById('price-' + vehicleId).innerText; 
 
         if (startdate === "" || enddate === "") {
             alert("Please select start date and end date.");
@@ -240,7 +239,6 @@
                 price: price
             },
             function(data, status){
-                console.log("Data: " + data + "\nStatus: " + status); // Output data and status to console for debugging
                 alert("Item added to the cart!");
             });
         }
@@ -257,4 +255,3 @@
 
 </body>
 </html>
-

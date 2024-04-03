@@ -38,6 +38,10 @@ $row = mysqli_fetch_assoc($status);
             align-items: center;
         }
 
+        .main{
+            height: 81vh;
+        }
+
         .logo {
             height: 90px;
             width: 90px;
@@ -101,12 +105,12 @@ $row = mysqli_fetch_assoc($status);
         }
 
         .bg-image {
-            background-image: url(profilebg.jpg);
+            background-image: url(./images/equipment/profilebgg.jpg);
             background-repeat: no-repeat;
             background-size: cover;
             filter: blur(3px);
-            height: 29rem;
-            width: 67rem;
+            height: 29.5rem;
+            width: 68rem;
         }
 
         .body-text{
@@ -123,7 +127,6 @@ $row = mysqli_fetch_assoc($status);
 
         #content {
             display: flex;
-            height: 80vh;
         }
 
         #box{
@@ -178,68 +181,213 @@ $row = mysqli_fetch_assoc($status);
             padding: 20px 40px 0px 40px;
         }
 
-        #order {
+        #equip, 
+        #update {
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             width: 85%;
+            height: 81vh;
             text-align: center;
         }
 
-        #order h3 {
+        #equip h3, 
+        #update h3 {
             font-family: "fangsong";
             font-size: 30px;
+            margin: 20px 0px;
         }
 
-        table {
+        #equip table, 
+        #update table {
             width: 85%;
-            padding: 10px;
+            padding: 0px 0px 20px 0px;
         }
 
-        table tr td {
-            font-size: 18px;
-            font-family: serif;
-            width: 15%;
-        }
-
-        table tr td h4 {
-            margin: 5px 0px;
-            font-size: 18px;
-        }
-
-        table tr td p {
-            padding: 5px 0px;
-            font-size: 18px;
-            font-family: serif;
-        }
- 
-        table tbody tr {
-            border: 2px solid black;
+        #equip table thead tr, 
+        #update table thead tr {
+            background-color: #dedede;
+            border: 2px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border-radius: 20px;
-            box-shadow: 0px 0px 15px black;
+        }
+
+        #equip table thead tr th, 
+        #update table thead tr th {
+            padding: 10px 0px;
+        }
+
+        #equip table tr, 
+        #update table tr {
+            font-size: 18px;
+            font-family: 'Source Serif 4';
+        }
+
+        #equip table tr td, 
+        #update table tr td {
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        #equip table tbody tr, 
+        #update table tbody tr {
+            border: 2px solid grey;
+            box-shadow: 0 6px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 28rem;
+            top: 2rem;
+            width: 30%;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 15px;
+        }
+
+        #close {
+            float: right;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #close:hover,
+        #close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            font-size: 16px;
+            font-family: emoji;
+            width: 75%;
+        }
+
+        .form-control { 
+            height: 30px;
+            padding-left: 10px;
+        }
+
+        .btn {
+            width: 5rem;
+            height: 2rem;
+            border-radius: 7px;
+            border: 1px solid black;
+            margin-right: 18px;
+            cursor: pointer;
+        }
+
+        .approve {
+            background-color: #55b755;
+        }
+
+        .reject {
+            background-color: #d55252;
         }
     </style>
+
+    <script>
+        function details(tab) {
+            const profile = document.querySelector('.main#profile');
+            const equip = document.getElementById('equip');
+            const updated = document.getElementById('update');
+
+            if(tab === 'profile'){
+                equip.style.display = 'none';
+                updated.style.display = 'none';
+                profile.style.display = 'flex';
+            }
+            else if(tab === 'equip') {
+                equip.style.display = 'flex';
+                profile.style.display = 'none';
+                updated.style.display = 'none';
+            }
+            else {
+                equip.style.display = 'none';
+                profile.style.display = 'none';
+                updated.style.display = 'flex';
+            }
+        }
+
+        function deleted(vehicleId){
+            const result = confirm("Are you sure you want to delete this equipment ?");
+
+            if(result){
+                const url = "deleteequip.php?vehicle_id="+vehicleId ;
+                window.location.href = url;
+            }
+        }
+           
+        function openModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        function validateForm() {
+            var vehicleNumber = document.getElementById('vehicleNumber').value;
+            var vehicleNumberRegex = /^[a-zA-Z]{2}\s{0,1}\d{2}\s{0,1}[a-zA-Z]{2}\s{0,1}\d{4}$/;
+            var errors = [];
+            if (!vehicleNumberRegex.test(vehicleNumber)) {
+                errors.push('Invalid Vehicle Number.');
+            }
+
+            var vehicleType = document.getElementById('vehicleType').value;
+            var description = document.getElementById('description').value;
+
+            var price = document.getElementById('price').value;
+            var priceRegex = /^\d+(\.\d{1,2})?$/;
+            if (!priceRegex.test(price)) {
+                errors.push('Invalid Price.');
+            }
+
+            if (errors.length > 0) {
+                alert(errors.join('\n'));
+                return false;
+            }
+
+            var image = document.getElementById('image').value;
+            return true;
+        }
+    </script>
+
 </head>
 <body>
     <header>
         <div>
-            <img src="logo.png" alt="Comapny Logo" class="logo">
+            <img src="./images/equipment/logo.png" alt="Comapny Logo" class="logo">
         </div>
-        <h2>DASHBOARD</h2>
         <div class="cart">
-            <a href="Equip.html"><i class="icon fa-solid fa-tractor"></i></a>
-            <a href="cart.html" class="icon"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a href="upload.html"><i class="fa-solid fa-upload"></i></a>
+            <a href="logout.php" class="icon"><i class="fa-solid fa-power-off"></i></a>
         </div>
     </header>
     <div id="content">
         <div class="sidebar">
             <div class="profile-pic">
-                <h1>H</h1>
+                <h1><?php echo strtoupper(substr($row['username'], 0, 1)); ?></h1>
             </div>
             <button onclick="details('profile')">PROFILE</button>
-            <button onclick="details('order')">EQUIPMENTS LISTED</button>
-            <a href="logout.php"><button>LOGOUT</button></a>
+            <button onclick="details('equip')">LISTED EQUIPMENT</button>
+            <button onclick="details('updated')">UPDATE EQUIPMENT</button>
         </div>
     
         <div class="main" id="profile">
@@ -262,7 +410,7 @@ $row = mysqli_fetch_assoc($status);
     
                         <div class="usercontent" style="width: 30%;">
                             <p><?php echo $row['username']; ?></p>
-                            <p>Owner</p>
+                            <p>Farmer</p>
                             <p><?php echo $row['location']; ?></p>
                             <p><?php echo $row['aadhar_card']; ?></p>
                             <p><?php echo strtoupper($row['pan_card']); ?></p>
@@ -272,22 +420,194 @@ $row = mysqli_fetch_assoc($status);
                 </div>
             </div>
         </div>
+
+        <div id="equip">
+            <h3>Your Equipments!!</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>S No.</th>
+                        <th>Vehicle Number</th>
+                        <th>Model</th>
+                        <th>Description</th>
+                        <th>From</th>
+                        <th>Till</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $owner = mysqli_query($conn, "SELECT * FROM owner WHERE user_id = '$user_id'");
+                        $row = mysqli_fetch_assoc($owner);
+                        $owner_id = $row['owner_id'];
+                        
+                        $status = mysqli_query($conn, "SELECT * FROM vehicle where owner_id = $owner_id");
+
+                        $has_equip = false;
+                        $i = 1;
+
+                        while($row = mysqli_fetch_assoc($status)){
+                            $has_equip = true;
+                    ?>
+                    <tr>
+                        <td>
+                            <p><?php echo $i;?></p>
+                        </td>
+                        <td>
+                            <p><?php echo $row['vehicle_num'];?></p>
+                        </td>
+                        <td>
+                            <p><?php echo $row['model'];?></p>
+                        </td>
+                        <td style="width: 20%;">
+                            <p><?php echo $row['description'];?></p>
+                        </td>
+                        <td>
+                            <p><?php echo $row['startdate'];?></p>
+                        </td>
+                        <td>
+                            <p><?php echo $row['enddate'];?></p>
+                        </td>
+                        <td>
+                            <p><?php echo $row['price'];?></p>
+                        </td>
+                        <td>
+                            <p><?php echo $row['status'];?></p>
+                        </td>
+                    </tr>
+                    <?php
+                            $i++; 
+                        }
+                        if (!$has_equip) {
+                            echo "<script>
+                                    var orderElement = document.getElementById('equip');
+                                    orderElement.innerHTML = '<span style=\"font-size: 35px; font-family: system-ui; padding: 10rem; margin-left: 6rem;\">No Equipments Listed!! 👨‍🌾</span>';
+                                  </script>";
+                        }   
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="update">
+        <h3>Manage Equipments!!</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>S No.</th>
+                        <th>Vehicle Number</th>
+                        <th>Model</th>
+                        <th>Action</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $owner = mysqli_query($conn, "SELECT * FROM owner WHERE user_id = '$user_id'");
+                        $row = mysqli_fetch_assoc($owner);
+                        $owner_id = $row['owner_id'];
+                        
+                        $status = mysqli_query($conn, "SELECT * FROM vehicle where owner_id = $owner_id");
+
+                        $has_equip = false;
+                        $i = 1;
+
+                        while($row = mysqli_fetch_assoc($status)){
+                            $has_equip = true;
+                    ?>
+                    <tr class="<?php echo $row['vehicle_id'] ?>">
+                        <td>
+                            <p><?php echo $i;?></p>
+                        </td>
+                        <td>
+                            <p><?php echo $row['vehicle_num'];?></p>
+                        </td>
+                        <td>
+                            <p><?php echo $row['model'];?></p>
+                        </td>
+                        <td style="width: 15rem;">
+                            <button class="btn approve" onclick="openModal()">UPDATE</button>
+                            <button class="btn reject" onclick="deleted(<?php echo $row['vehicle_id']; ?>)">DELETE</button>
+                        </td>
+                        <td>
+                            <p><?php echo $row['status'];?></p>
+                        </td>
+                    </tr>
+                    <?php
+                            $i++; 
+                        }
+                        if (!$has_equip) {
+                            echo "<script>
+                                    var orderElement = document.getElementById('equip');
+                                    orderElement.innerHTML = '<span style=\"font-size: 35px; font-family: system-ui; padding: 10rem; margin-left: 6rem;\">No Equipments Listed!! 👨‍🌾</span>';
+                                  </script>";
+                        }   
+                    ?>
+                </tbody>
+            </table>
+
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <button onclick="closeModal()" id="close"><i class="fa-solid fa-xmark"></i></button>
+                    <div class="form-container">
+                        <form enctype="multipart/form-data" style="width: 70vh;" onsubmit="return validateForm()" method="POST" action="updateequip.php?vehicle_id=<?php echo $row['vehicle_id']; ?>">
+                            <div class="form-group">
+                                <label for="vehicleNumber">Vehicle Number</label>
+                                <input type="text" class="form-control" placeholder="Vehicle Number" id="vehicleNumber" name="vehicleNumber" required>
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for="vehicleType">Vehicle Type</label>
+                                <select class="form-control" id="vehicleType" name="vehicleType" required>
+                                    <option value="" disabled selected>Select Vehicle</option>
+                                    <option value="1">Cultivators</option>
+                                    <option value="2">Harvesters</option>
+                                    <option value="3">Tractors</option>
+                                    <option value="4">Seed Sowing Machine</option>
+                                    <option value="5">Sprayers</option>
+                                    <option value="6">Tiller</option>
+                                    <option value="7">Trailer</option>
+                                    <option value="8">Baler</option>
+                                    <option value="9">Thresher</option>
+                                    <option value="10">Water Pump</option>
+                                    <option value="11">Cage Wheel</option>
+                                    <option value="12">Plows</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="model">Model</label>
+                                <input type="text" class="form-control" id="model" placeholder="Model" name="model" required>
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" id="description" placeholder="Description(Company Name, Fuel Type, Power...)" name="description" rows="3"></textarea>
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for="Price">Price</label>
+                                <input type="text" class="form-control" id="price" placeholder="Price (per day)" name="price" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="startdate">Start Date</label>
+                                <input type="date" class="form-control" id="startdate" name="startdate" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="enddate">End Date</label>
+                                <input type="date" class="form-control" id="enddate" name="enddate" required>
+                            </div>
+                            <div style="text-align: center; width: 85%">
+                                <button type="submit" class="btn">Submit</button>
+                            </div>
+                        </form>
+                    </div>            
+                </div>
+            </div>
+        </div>
     </div>
-
-    <script>
-        function details(tab) {
-            const profile = document.getElementById('profile');
-            const order = document.getElementById('order');
-
-            if(tab === 'profile'){
-                order.style.display = 'none';
-                profile.style.display = 'inherit';
-            }
-            else{
-                order.style.display = 'flex';
-                profile.style.display = 'none';
-            }
-        }
-    </script>
 </body>
 </html>

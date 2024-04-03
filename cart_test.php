@@ -201,7 +201,23 @@ $farmer_id = $_SESSION['farmer_id'];
         color: #fff;
         text-decoration: none;
     }
+
+    *{
+        scroll-behavior: smooth;
+    }
     </style>
+
+    <script>
+        function updateStatus(vehicleId){
+            console.log(vehicleId);
+            const result = confirm("Are you sure you want to place this order ?");
+
+            if(result){
+                const url = "orderStatus.php?vehicle_id="+vehicleId ;
+                window.location.href = url;
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -209,7 +225,7 @@ $farmer_id = $_SESSION['farmer_id'];
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="logo.png" alt="Company Logo">
+                    <img src="./images/equipment/logo.png" alt="Company Logo">
                 </div>
                     <div class="cart">
                         <a href="Equip.html"><i class="icon fa-solid fa-tractor"></i></a>
@@ -238,7 +254,12 @@ $farmer_id = $_SESSION['farmer_id'];
                     $status = mysqli_query($conn, "SELECT * FROM `order` WHERE farmer_id = $farmer_id");
                     $row = mysqli_fetch_assoc($status);
                     $orderId = $row['order_id'];
-                    
+
+                    $orderStatus = mysqli_query($conn, "SELECT v.vehicle_id 
+                                                        FROM line_item l 
+                                                        INNER JOIN vehicle v ON l.vehicle_id = v.vehicle_id AND l.order_id = $orderId");
+                    $orderRow = mysqli_fetch_assoc($orderStatus);
+
                     $query = "SELECT l.line_id, l.order_id, l.vehicle_id, l.start_date, l.end_date, l.price, v.model, v.description 
                               FROM line_item l 
                               INNER JOIN vehicle v ON l.vehicle_id = v.vehicle_id AND l.order_id = $orderId";
@@ -360,7 +381,7 @@ $farmer_id = $_SESSION['farmer_id'];
                     </div>
                     <div class="col">
                         <div class="checkout-button mt-3 w-100">
-                            <a href="checkout.php" class="btn btn-primary">Proceed to Checkout</a>
+                            <a href="#paywall" class="btn btn-primary">Proceed to Checkout</a>
                         </div>
                     </div>
                 </div>
@@ -368,12 +389,10 @@ $farmer_id = $_SESSION['farmer_id'];
         </div>
     </div>
     
-    <script src="./script.js"></script>
-    
-    <body className='snippet-body'>
-<div class="container-fluid px-0" id="bg-div">
+    <!-- Checkout Section --> 
+    <div class="container-fluid px-0" id="bg-div">
     <div class="row justify-content-center">
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9 col-12" id="paywall">
             <div class="card card0">
                 <div class="d-flex" id="wrapper">
                     <!-- Sidebar -->
@@ -422,7 +441,7 @@ $farmer_id = $_SESSION['farmer_id'];
                                     <div class="col-11">
                                         <div class="form-card">
                                             <h3 class="mt-0 mb-4 text-center">Enter bank details to pay</h3>
-                                            <form onsubmit="event.preventDefault()">
+                                            <form>
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="input-group"> <input type="text" id="bk_nm" placeholder="BBB Bank"> <label>BANK NAME</label> </div>
@@ -437,7 +456,7 @@ $farmer_id = $_SESSION['farmer_id'];
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-12"> <input type="submit" value="₹<?php echo $Total; ?>" id="submit-btn" class="btn btn-success placeicon"> </div>
+                                                    <div class="col-md-12"> <button type="submit" onclick="updateStatus(<?php echo $orderRow['vehicle_id']; ?>)" id="submit-btn" class="btn btn-success placeicon"> ₹<?php echo $Total; ?></button></div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
@@ -469,7 +488,7 @@ $farmer_id = $_SESSION['farmer_id'];
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-12"> <input type="submit" value="₹<?php echo $Total; ?>" class="btn btn-success placeicon" id="submit-bank"> </div>
+                                                    <div class="col-md-12"><button type="submit" onclick="updateStatus(<?php echo $orderRow['vehicle_id']; ?>)" id="submit-btn" class="btn btn-success placeicon"> ₹<?php echo $Total; ?></button></div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
@@ -499,7 +518,8 @@ $farmer_id = $_SESSION['farmer_id'];
     </div>
 </div>
 
-<script type='text/javascript'>$(document).ready(function(){
+<script type='text/javascript'>
+    $(document).ready(function(){
     //Menu Toggle Script
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
@@ -526,11 +546,6 @@ $farmer_id = $_SESSION['farmer_id'];
         $("#tab3").removeClass("bg-light");
     });
 })
-</script>
-<script type='text/javascript'>var myLink = document.querySelector('a[href="#"]');
-    myLink.addEventListener('click', function(e) {
-      e.preventDefault();
-});
 </script>
 
 </body>

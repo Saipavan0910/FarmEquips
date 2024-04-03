@@ -38,6 +38,10 @@ $row = mysqli_fetch_assoc($status);
             align-items: center;
         }
 
+        .main{
+            height: 81vh;
+        }
+
         .logo {
             height: 90px;
             width: 90px;
@@ -101,12 +105,12 @@ $row = mysqli_fetch_assoc($status);
         }
 
         .bg-image {
-            background-image: url(profilebgg.jpg);
+            background-image: url(./images/equipment/profilebgg.jpg);
             background-repeat: no-repeat;
             background-size: cover;
             filter: blur(3px);
-            height: 29rem;
-            width: 67rem;
+            height: 29.5rem;
+            width: 68rem;
         }
 
         .body-text{
@@ -183,6 +187,7 @@ $row = mysqli_fetch_assoc($status);
             align-items: center;
             justify-content: flex-start;
             width: 85%;
+            height: 81vh;
             text-align: center;
         }
 
@@ -225,22 +230,37 @@ $row = mysqli_fetch_assoc($status);
             border-radius: 20px;
         }
     </style>
+
+    <script>
+        function details(tab) {
+            const profile = document.querySelector('.main#profile');
+            const order = document.getElementById('order');
+
+            if(tab === 'profile'){
+                order.style.display = 'none';
+                profile.style.display = 'flex';
+            }
+            else{
+                order.style.display = 'flex';
+                profile.style.display = 'none';
+            }
+        }
+    </script>
 </head>
 <body>
     <header>
         <div>
-            <img src="logo.png" alt="Comapny Logo" class="logo">
+            <img src="./images/equipment/logo.png" alt="Comapny Logo" class="logo">
         </div>
-        <h2>DASHBOARD</h2>
         <div class="cart">
             <a href="Equip.html"><i class="icon fa-solid fa-tractor"></i></a>
-            <a href="cart.html" class="icon"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a href="cart_test.php" class="icon"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
     </header>
     <div id="content">
         <div class="sidebar">
             <div class="profile-pic">
-                <h1>H</h1>
+                <h1><?php echo strtoupper(substr($row['username'], 0, 1)); ?></h1>
             </div>
             <button onclick="details('profile')">PROFILE</button>
             <button onclick="details('order')">ORDER HISTORY</button>
@@ -283,7 +303,7 @@ $row = mysqli_fetch_assoc($status);
             <table>
                 <thead>
                     <tr>
-                        <th>Model Name</th>
+                        <th>Model</th>
                         <th>Description</th>
                         <th>Start Date</th>
                         <th>End Date</th>
@@ -297,51 +317,62 @@ $row = mysqli_fetch_assoc($status);
                         $row = mysqli_fetch_assoc($farmer);
                         $farmer_id = $row['farmer_id'];
                         
-                        $status = mysqli_query($conn, "SELECT * FROM order
-                                    INNER JOIN line_item ON 
-                                    order.order_id = line_item.order_id");
+                        $status = mysqli_query($conn, "SELECT 
+                                    l.vehicle_id, 
+                                    l.start_date,
+                                    l.end_date,
+                                    l.price,
+                                    l.order_id,
+                                    v.description, 
+                                    v.model, 
+                                    o.order_id,
+                                    o.status, 
+                                    o.farmer_id
+                                    FROM line_item as l
+                                    INNER JOIN vehicle as v ON                                     
+                                    l.vehicle_id = v.vehicle_id 
+                                    INNER JOIN `order` as o ON
+                                    o.order_id = l.order_id
+                                    WHERE
+                                    o.farmer_id = $farmer_id");
+
+                        $has_order = false;
 
                         while($row = mysqli_fetch_assoc($status)){
+                            $has_order = true;
                     ?>
                     <tr>
                         <td>
-                            <p><?php echo $farmer_id;?></p>
+                            <p><?php echo $row['model'];?></p>
                         </td>
                         <td style="width: 20%;">
-                            <p><?php echo $row['vehicle_id'];?></p>
+                            <p><?php echo $row['description'];?></p>
                         </td>
                         <td>
-                            <p><?php echo $row['startdate'];?></p>
+                            <p><?php echo $row['start_date'];?></p>
                         </td>
                         <td>
-                            <p><?php echo $row['enddate'];?></p>
+                            <p><?php echo $row['end_date'];?></p>
                         </td>
                         <td>
                             <p><?php echo $row['price'];?></p>
                         </td>
+                        <td>
+                            <p><?php echo $row['status'];?></p>
+                        </td>
                     </tr>
                     <?php
                         }
+                        if (!$has_order) {
+                            echo "<script>
+                                    var orderElement = document.getElementById('order');
+                                    orderElement.innerHTML = '<span style=\"font-size: 35px; font-family: system-ui; padding: 10rem; margin-left: 6rem;\">No Orders Yet!! 👨‍🌾</span>';
+                                  </script>";
+                        }                        
                     ?>
                 </tbody>
             </table>
         </div>
     </div>
-
-    <script>
-        function details(tab) {
-            const profile = document.getElementById('profile');
-            const order = document.getElementById('order');
-
-            if(tab === 'profile'){
-                order.style.display = 'none';
-                profile.style.display = 'inherit';
-            }
-            else{
-                order.style.display = 'flex';
-                profile.style.display = 'none';
-            }
-        }
-    </script>
 </body>
 </html>
