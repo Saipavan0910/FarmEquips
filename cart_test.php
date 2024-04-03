@@ -251,13 +251,18 @@ $farmer_id = $_SESSION['farmer_id'];
                         mysqli_query($conn, $deleteQuery);
                     }
 
-                    $status = mysqli_query($conn, "SELECT * FROM `order` WHERE farmer_id = $farmer_id");
+                    $status = mysqli_query($conn, "SELECT * FROM `order` WHERE farmer_id = $farmer_id AND `status` = 'In Cart'");
                     $row = mysqli_fetch_assoc($status);
-                    $orderId = $row['order_id'];
+                    
+                    if($row == null){
+                        $orderId = -1;
+                    }
+                    else{
+                        $orderId = $row['order_id'];
+                        
+                    }
 
-                    $orderStatus = mysqli_query($conn, "SELECT v.vehicle_id 
-                                                        FROM line_item l 
-                                                        INNER JOIN vehicle v ON l.vehicle_id = v.vehicle_id AND l.order_id = $orderId");
+                    $orderStatus = mysqli_query($conn, "SELECT vehicle_id FROM line_item WHERE order_id = $orderId");
                     $orderRow = mysqli_fetch_assoc($orderStatus);
 
                     $query = "SELECT l.line_id, l.order_id, l.vehicle_id, l.start_date, l.end_date, l.price, v.model, v.description 
@@ -272,6 +277,7 @@ $farmer_id = $_SESSION['farmer_id'];
                     if (mysqli_num_rows($result) > 0) {
                         // Loop through cart items
                         while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<script>console.log('Debug Objects: " . json_encode($row) . "' );</script>";
                             // Extract data from the current row
                             $lineId = $row['line_id'];
                             $vehicleId = $row['vehicle_id'];
@@ -325,7 +331,6 @@ $farmer_id = $_SESSION['farmer_id'];
                         echo "<p>No items in the cart.</p>";
                     }
                     ?>
-
                 </div>
             </div>
         </div>

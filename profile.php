@@ -334,7 +334,7 @@ $row = mysqli_fetch_assoc($status);
                                     INNER JOIN `order` as o ON
                                     o.order_id = l.order_id
                                     WHERE
-                                    o.farmer_id = $farmer_id");
+                                    o.farmer_id = $farmer_id AND o.status IN ('Placed')");
 
                         $has_order = false;
 
