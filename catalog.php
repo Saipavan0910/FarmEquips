@@ -160,7 +160,8 @@
                     v.vehicle_id,
                     v.model, 
                     v.startdate, 
-                    v.enddate
+                    v.enddate, 
+                    v.image
                 FROM
                     vehicle AS v
                 INNER JOIN OWNER AS o
@@ -180,7 +181,7 @@
         <div class="d-flex justify-content-center row; single-catalog" style="width:100%; margin-right: auto; margin-top: 45px;">
             <div class="col-md-10">
                 <div class="row p-2 bg-white border rounded">
-                    <div class="col-md-3 mt-1" style="margin-bottom: 0px !important; padding-top: 15px !important; padding-bottom: 15px !important; margin-top: 0px !important;"><img class="img-fluid img-responsive rounded product-image" src="./Firefly tractor working in farm and harvesting rice and picking up 32529.jpg"></div>
+                    <div class="col-md-3 mt-1" style="margin-bottom: 0px !important; padding-top: 15px !important; padding-bottom: 15px !important; margin-top: 0px !important;"><img class="img-fluid img-responsive rounded product-image" src="<?php echo $row['image']; ?>"></div>
                     <div class="col-md-6 mt-1">
                         <h4><?php echo $row['model']; ?></h4>
                         <div class="d-flex flex-row">

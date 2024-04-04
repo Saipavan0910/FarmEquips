@@ -265,7 +265,7 @@ $farmer_id = $_SESSION['farmer_id'];
                     $orderStatus = mysqli_query($conn, "SELECT vehicle_id FROM line_item WHERE order_id = $orderId");
                     $orderRow = mysqli_fetch_assoc($orderStatus);
 
-                    $query = "SELECT l.line_id, l.order_id, l.vehicle_id, l.start_date, l.end_date, l.price, v.model, v.description 
+                    $query = "SELECT l.line_id, l.order_id, l.vehicle_id, l.start_date, l.end_date, l.price, v.model, v.description, v.image
                               FROM line_item l 
                               INNER JOIN vehicle v ON l.vehicle_id = v.vehicle_id AND l.order_id = $orderId";
 
@@ -277,8 +277,6 @@ $farmer_id = $_SESSION['farmer_id'];
                     if (mysqli_num_rows($result) > 0) {
                         // Loop through cart items
                         while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<script>console.log('Debug Objects: " . json_encode($row) . "' );</script>";
-                            // Extract data from the current row
                             $lineId = $row['line_id'];
                             $vehicleId = $row['vehicle_id'];
                             $startDate = $row['start_date'];
@@ -286,6 +284,7 @@ $farmer_id = $_SESSION['farmer_id'];
                             $pricePerDay = $row['price'];
                             $model = $row['model'];
                             $description = $row['description'];
+                            $image = $row['image'];
 
                             $start = new DateTime($startDate);
                             $end = new DateTime($endDate);
@@ -300,7 +299,7 @@ $farmer_id = $_SESSION['farmer_id'];
                             echo "<div class='col-md-10'>";
                             echo "<div class='row p-2 bg-white border rounded product-card'>";
                             echo "<div class='col-md-3 mt-1'>";
-                            echo "<img class='img-fluid img-responsive rounded product-image' src='./Firefly tractor working in farm and harvesting rice and picking up 32529.jpg'>";
+                            echo "<img class='img-fluid img-responsive rounded product-image' src='$image'>";
                             echo "</div>";
                             echo "<div class='col-md-6 mt-1'>";
                             echo "<h4>$model</h4>";
@@ -461,7 +460,7 @@ $farmer_id = $_SESSION['farmer_id'];
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-12"> <button type="submit" onclick="updateStatus(<?php echo $orderRow['vehicle_id']; ?>)" id="submit-btn" class="btn btn-success placeicon"> ₹<?php echo $Total; ?></button></div>
+                                                    <div class="col-md-12"> <button type="submit" style="width: 125px; height: 38px; margin-left: 240px; margin-bottom: 15px;" onclick="updateStatus(<?php echo $orderRow['vehicle_id']; ?>)" id="submit-btn" class="btn btn-success placeicon"> ₹<?php echo $Total; ?></button></div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
@@ -493,7 +492,7 @@ $farmer_id = $_SESSION['farmer_id'];
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-12"><button type="submit" onclick="updateStatus(<?php echo $orderRow['vehicle_id']; ?>)" id="submit-btn" class="btn btn-success placeicon"> ₹<?php echo $Total; ?></button></div>
+                                                    <div class="col-md-12"><button type="submit" style="width: 125px; height: 38px; margin-left: 240px; margin-bottom: 15px;" onclick="updateStatus(<?php echo $orderRow['vehicle_id']; ?>)" id="submit-btn" class="btn btn-success placeicon"> ₹<?php echo $Total; ?></button></div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">

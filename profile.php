@@ -316,6 +316,28 @@ $row = mysqli_fetch_assoc($status);
                         $farmer = mysqli_query($conn, "SELECT * FROM farmer WHERE user_id = '$user_id'");
                         $row = mysqli_fetch_assoc($farmer);
                         $farmer_id = $row['farmer_id'];
+
+                        $check_date = mysqli_query($conn, "SELECT 
+                                        l.vehicle_id, 
+                                        l.end_date,
+                                        o.status
+                                        FROM line_item as l
+                                        INNER JOIN `order` as o ON
+                                        o.order_id = l.order_id
+                                        WHERE
+                                        o.farmer_id = $farmer_id");
+                        
+                        while($check_row = mysqli_fetch_assoc($check_date)){
+                            $date = $check_row['end_date'];
+                            $curr_Date = date("Y-m-d");
+
+                            if($curr_Date > $date){
+                                $status = mysqli_query($conn, "UPDATE vehicle SET status = 'Not Rented' WHERE vehicle_id = $vehicleId");
+
+                                $status2 = mysqli_query($conn, "UPDATE `order` SET status = 'Done' WHERE farmer_id = $farmer_id");
+                            }
+                        }
+
                         
                         $status = mysqli_query($conn, "SELECT 
                                     l.vehicle_id, 
