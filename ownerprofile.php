@@ -641,8 +641,8 @@ $row = mysqli_fetch_assoc($status);
                     <p><?php echo $row['model'];?></p>
                 </td>
                 <td style="width: 15rem;">
-                    <button class="btn btn-primary" onclick="openModal(<?php echo $row['vehicle_id']; ?>)">UPDATE</button>
-                    <button class="btn reject" onclick="deleted(<?php echo $row['vehicle_id']; ?>)">DELETE</button>
+                    <button class="btn btn-primary" style="margin-bottom: 10px; margin-top: 5px; background-color: green;" onclick="openModal(<?php echo $row['vehicle_id']; ?>)">UPDATE</button>
+                    <button class="btn reject" style="background-color: #d94a4a !important;" onclick="deleted(<?php echo $row['vehicle_id']; ?>)">DELETE</button>
                 </td>
                 <td>
                     <p><?php echo $row['status'];?></p>
