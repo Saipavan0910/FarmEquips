@@ -400,7 +400,7 @@ $row = mysqli_fetch_assoc($status);
             <thead>
                 <tr>
                 <th>Model</th>
-                <th>Description</th>
+                <th>Product Type</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Price</th>
@@ -441,14 +441,18 @@ $row = mysqli_fetch_assoc($status);
                 l.order_id,
                 v.description,
                 v.model,
+                v.product_id,
                 o.order_id,
                 o.status,
-                o.farmer_id
+                o.farmer_id, 
+                p.name
                 FROM line_item as l
                 INNER JOIN vehicle as v ON
                 l.vehicle_id = v.vehicle_id
                 INNER JOIN `order` as o ON
                 o.order_id = l.order_id
+                INNER JOIN product as p ON
+                v.product_id = p.product_id
                 WHERE
                 o.farmer_id = $farmer_id AND o.status IN ('Placed')");
 
@@ -461,8 +465,8 @@ $row = mysqli_fetch_assoc($status);
                 <td>
                     <p><?php echo $row['model'];?></p>
                 </td>
-                <td style="width: 20%;">
-                    <p><?php echo $row['description'];?></p>
+                <td>
+                    <p><?php echo $row['name'];?></p>
                 </td>
                 <td>
                     <p><?php echo $row['start_date'];?></p>

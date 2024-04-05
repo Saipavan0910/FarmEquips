@@ -253,7 +253,7 @@ $row = mysqli_fetch_assoc($status);
 
             #equip table,
             #update table {
-                width: 85%;
+                width: 90%;
                 padding: 0px 0px 20px 0px;
             }
 
@@ -285,7 +285,6 @@ $row = mysqli_fetch_assoc($status);
 
             #equip table tbody tr,
             #update table tbody tr {
-                border: 2px solid grey;
                 box-shadow: 0 6px 5px rgba(0, 0, 0, 0.1);
                 border-radius: 20px;
             }
@@ -550,7 +549,6 @@ $row = mysqli_fetch_assoc($status);
                     <th>S No.</th>
                     <th>Vehicle Number</th>
                     <th>Model</th>
-                    <th>Description</th>
                     <th>From</th>
                     <th>Till</th>
                     <th>Price</th>
@@ -579,9 +577,6 @@ $row = mysqli_fetch_assoc($status);
                     </td>
                     <td>
                     <p><?php echo $row['model'];?></p>
-                    </td>
-                    <td style="width: 20%;">
-                    <p><?php echo $row['description'];?></p>
                     </td>
                     <td>
                     <p><?php echo $row['startdate'];?></p>

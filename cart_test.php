@@ -36,48 +36,32 @@ $farmer_id = $_SESSION['farmer_id'];
         padding: 15px;
     }
 
+    .form-card{
+        padding : 20px;
+    }
+
     body {
         background: #eee;
     }
 
-    .container {
-        margin-left: 30px !important;
-        max-width: 2000px;
-        padding: 12px;
-        width: 100%;
-    }
-
-    .custom-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color: darkcyan;
-        padding: 20px;
-        margin: -4vh 0;
-    }
-
-    .logo img {
-        height: 85px;
-        border-radius: 50%;
-    }
-
     header {
         background-color: darkcyan;
-        color: rgb(4, 4, 4);
-        padding: 0px;
-        width: 81rem;
-    }
-
-    .header-content {
+        color: #fff;
+        padding: 10px 20px;
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        width: 95%;
+        align-items: center;
     }
 
-    header img {
-        height: 70px;
+    .logo {
+        height: 90px;
+        width: 90px;
         border-radius: 50%;
+    }
+
+    header h2{
+        font-family: fansong;
+        font-size: 35px;
     }
 
     .cart a {
@@ -171,12 +155,26 @@ $farmer_id = $_SESSION['farmer_id'];
         margin: 0px;
     }
 
+    .container {
+    /* Adjust container width */
+    max-width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.w-100 {
+    /* Adjust width */
+    width: 100%;
+}
+
     .cart-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-        height: 45vh;
+        height: auto;
         width: 100%;
     }
 
@@ -187,7 +185,7 @@ $farmer_id = $_SESSION['farmer_id'];
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         width: 100%;
         border-top: 2px solid #ccc;
-        padding: 10px;
+        
     }
 
     .checkout-button {
@@ -222,17 +220,13 @@ $farmer_id = $_SESSION['farmer_id'];
 
 <body>
     <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="./images/equipment/logo.png" alt="Company Logo">
-                </div>
-                    <div class="cart">
-                        <a href="Equip.html"><i class="icon fa-solid fa-tractor"></i></a>
-                        <a href="profile.php" class="icon"><i class="fa-solid fa-user"></i></a>
-                    </div>
+        <div>
+            <img src="./images/equipment/logo.png" alt="Company Logo" class="logo">
             </div>
-        </div>
+            <div class="cart">
+                <a href="Equip.html"><i class="icon fa-solid fa-tractor"></i></a>
+                <a href="profile.php"><i class="fa-solid fa-user"></i></a>
+            </div>
     </header>
 
     <div class="w-100 d-flex flex-row justify-content-around">
@@ -337,7 +331,7 @@ $farmer_id = $_SESSION['farmer_id'];
             <!-- Your cart summary and checkout button -->
             <div class="w-25">
                 <div class="cart-container mt-5">
-                    <div class="row" style="width: 40rem; justify-content: space-around; margin: 0px !important;">
+                    <div class="row" style="width: 620px;justify-content: space-around;margin: 0px !important;">
                         <div class="col-md-6" style="margin-left: 40px;">
                             <div class="cart-summary">
                                 <div class="subtotal">
@@ -395,7 +389,7 @@ $farmer_id = $_SESSION['farmer_id'];
     
     <!-- Checkout Section --> 
     <div class="container-fluid px-0" id="bg-div">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" style="width:100%">
         <div class="col-lg-9 col-12" id="paywall">
             <div class="card card0">
                 <div class="d-flex" id="wrapper">
@@ -522,6 +516,10 @@ $farmer_id = $_SESSION['farmer_id'];
     </div>
 </div>
 
+    <footer class="text-center">
+        <p>&copy; 2024 FarmFlow Rentals. All Rights Reserved.</p>
+    </footer>
+
 <script type='text/javascript'>
     $(document).ready(function(){
     //Menu Toggle Script
@@ -551,6 +549,7 @@ $farmer_id = $_SESSION['farmer_id'];
     });
 })
 </script>
+
 
 </body>
 </html>
