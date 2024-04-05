@@ -1,7 +1,6 @@
 <?php
 
 $vehiclenumber = $_POST['vehicleNumber'];
-$product_id = $_POST['vehicleType'];
 $model = $_POST['model'];
 $description = $_POST['description'];
 $price = $_POST['price'];

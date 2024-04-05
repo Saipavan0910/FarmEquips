@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+
+session_start();
+$farmer_id = $_SESSION['farmer_id'];
+$user_id = $_SESSION['user_id'];
+
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -130,6 +138,13 @@
             color: #fff;
         }
         
+        .prod-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
     </style>
 </head>
 
@@ -151,9 +166,6 @@
 
     <div class="container mt-5 mb-5" style="margin-left: 65px !important;" id ="zoom">
     <?php
-        session_start();
-        $farmer_id = $_SESSION['farmer_id'];
-        $user_id = $_SESSION['user_id'];
         $result = mysqli_query($conn, "SELECT
                     v.description,
                     v.price,
@@ -174,14 +186,44 @@
                     v.product_id = $product_id
                     AND u.location IN(SELECT location FROM user_details WHERE user_id = $user_id);");
 
-        while($row = mysqli_fetch_array($result))
-        {
+
+            while($row = mysqli_fetch_array($result))
+            {
+                $vehicleId = $row['vehicle_id'];
+                $vehicle_enddate = mysqli_query($conn, "SELECT vehicle_id, MAX(end_date) AS latest_end_date
+                FROM line_item
+                WHERE vehicle_id = $vehicleId
+                GROUP BY vehicle_id");
+
+                $row2 = mysqli_fetch_assoc($vehicle_enddate);
+                date_default_timezone_set('Asia/Kolkata');
+
+                if($row2 == null){
+                    if(date('Y-m-d') > $row['startdate'] ){
+                        $new_enddate = date('Y-m-d');
+                    }
+                    else{
+                        echo "<script>console.log('date: " . json_encode(date('Y-m-d')) . "');</script>";
+                        echo "<script>console.log('time: " . json_encode(date('h:i:s A')) . "');</script>";
+                        echo "<script>console.log('start date: " . json_encode($row['startdate']) . "');</script>";
+                        $new_enddate = $row['startdate'];
+                    }
+                }
+                else{
+                    $new_enddate = $row2['latest_end_date'];
+                    $temp_date = new DateTime($new_enddate);
+                    $temp_date->modify('+1 day');
+                    $new_enddate = $temp_date->format('Y-m-d');
+                }
+                $owner_enddate = $row['enddate'];
 
     ?>
         <div class="d-flex justify-content-center row; single-catalog" style="width:100%; margin-right: auto; margin-top: 45px;">
             <div class="col-md-10">
                 <div class="row p-2 bg-white border rounded">
-                    <div class="col-md-3 mt-1" style="margin-bottom: 0px !important; padding-top: 15px !important; padding-bottom: 15px !important; margin-top: 0px !important;"><img class="img-fluid img-responsive rounded product-image" src="<?php echo $row['image']; ?>"></div>
+                    <div class="col-md-3 mt-1" style="margin-bottom: 0px !important; padding-top: 15px !important; padding-bottom: 15px !important; margin-top: 0px !important; overflow: hidden !important;">
+                        <img class="img-fluid img-responsive rounded product-image prod-img" src="<?php echo $row['image']; ?>">
+                    </div>
                     <div class="col-md-6 mt-1">
                         <h4><?php echo $row['model']; ?></h4>
                         <div class="d-flex flex-row">
@@ -198,10 +240,19 @@
                         </div>
                         <div class="d-flex flex-column mt-4" style="margin-top: 0px !important;">
                             <h6>Start date:</h6>
-                            <input type="date" placeholder="Start Date" id="startdate-<?php echo $row['vehicle_id']; ?>" class="mb-2" min="<?php  echo $row['startdate']; ?>" max="<?php  echo $row['enddate']; ?>" onchange="dateValidate(<?php echo $row['vehicle_id']; ?>)">
+                            <input type="date" placeholder="Start Date" id="startdate-<?php echo $row['vehicle_id']; ?>" class="mb-2" min="<?php  echo $new_enddate; ?>" max="<?php  echo $row['enddate']; ?>" onchange="dateValidate(<?php echo $row['vehicle_id']; ?>)">
                             <h6>End date:</h6>
                             <input type="date" placeholder="End Date" id="enddate-<?php echo $row['vehicle_id']; ?>" class="mb-2" max="<?php  echo $row['enddate']; ?>">
-                            <button class="btn btn-primary btn-sm" type="button"  onclick="addToCart(<?php echo $row['vehicle_id']; ?>)" style="margin-top: 15px !important;">Add to Cart</button>
+
+                            <?php
+                                if($new_enddate > $owner_enddate) {
+                                    echo '<h4 style="font-size: 15px; text-align: center; border: 1px solid black; border-radius: 5px; height: 25px; margin-top: 10px; background-color: #d9d9d9;">OUT OF STOCK</h4>';
+                                } else {
+                                    ?>
+                                    <button class="btn btn-primary btn-sm" type="button" onclick="addToCart(<?php echo $row['vehicle_id']; ?>)" style="margin-top: 15px !important;">Add to Cart</button>
+                                    <?php
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
