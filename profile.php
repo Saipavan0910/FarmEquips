@@ -318,12 +318,21 @@ $row = mysqli_fetch_assoc($status);
                 }
             }
         </script>
+            <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+    </script>        
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     </head>
     <body>
         <header>
             <div>
                 <img src="./images/equipment/logo.png" alt="Company Logo" class="logo">
             </div>
+            <div id="google_translate_element" style="margin-left: 760px !important; margin-top: 5px !important;"></div>
+
             <div class="cart">
                 <a href="Equip.html"><i class="icon fa-solid fa-tractor"></i></a>
                 <a href="cart_test.php" class="icon"><i class="fa-solid fa-cart-shopping"></i></a>
@@ -416,20 +425,23 @@ $row = mysqli_fetch_assoc($status);
                 $check_date = mysqli_query($conn, "SELECT
                 l.vehicle_id,
                 l.end_date,
-                o.status
+                o.status, 
+                o.order_id
                 FROM line_item as l
                 INNER JOIN `order` as o ON
                 o.order_id = l.order_id
                 WHERE
                 o.farmer_id = $farmer_id");
                 while($check_row = mysqli_fetch_assoc($check_date)){
-                $date = $check_row['end_date'];
-                $curr_Date = date("Y-m-d");
+                    $date = $check_row['end_date'];
+                    $curr_Date = date("Y-m-d");
+                    $orderId = $check_row['order_id'];
+                    $vehicleId = $check_row['vehicle_id'];
 
                 if($curr_Date > $date){
-                $status = mysqli_query($conn, "UPDATE vehicle SET status = 'Not Rented' WHERE vehicle_id = $vehicleId");
+                    $status = mysqli_query($conn, "UPDATE vehicle SET status = 'Not Rented' WHERE vehicle_id = $vehicleId");
 
-                $status2 = mysqli_query($conn, "UPDATE `order` SET status = 'Done' WHERE farmer_id = $farmer_id");
+                    $status2 = mysqli_query($conn, "UPDATE `order` SET status = 'Done' WHERE farmer_id = $farmer_id AND order_id = $orderId");
                 }
                 }
 
@@ -454,7 +466,7 @@ $row = mysqli_fetch_assoc($status);
                 INNER JOIN product as p ON
                 v.product_id = p.product_id
                 WHERE
-                o.farmer_id = $farmer_id AND o.status IN ('Placed')");
+                o.farmer_id = $farmer_id AND (o.status = 'Done' OR o.status = 'Placed')");
 
                 $has_order = false;
 

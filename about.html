@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FarmFlow - About Us</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/4e97f0f302.js" crossorigin="anonymous"></script>
     <style>
         body {
             background-color: #f8f9fa;
@@ -17,6 +18,7 @@
             padding: 10px;
             text-align: center;
             font-family: AppleMyungjo;
+            display: flex;
         }
 
         .about-section,
@@ -43,6 +45,30 @@
         .contact-address {
             margin-bottom: 20px;
         }
+
+        .header-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 75%;
+}
+
+.cart a {
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 20px;
+    
+}
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
         
     </style>
      <script type="text/javascript">
@@ -57,8 +83,11 @@
 <body>
 
     <header>
-        <h1>FarmFlow</h1>
-        <div id="google_translate_element"></div>
+        <h1 style="margin-right: 68%;">FarmFlow</h1>
+        <div id="google_translate_element" style="margin-top: 10px;"></div>
+        <div class="cart"style="margin-top: 10px;margin-left: 30px;">
+            <a href="Farming_website.html" class="icon"><i class="fa-solid fa-house"></i></a>
+          </div>
     </header>
 
     <div class="container about-section">

@@ -146,6 +146,13 @@ $user_id = $_SESSION['user_id'];
         }
 
     </style>
+        <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+    </script>    
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </head>
 
 <body>
@@ -158,6 +165,8 @@ $user_id = $_SESSION['user_id'];
     <div class="custom-header">
         <img src="./images/equipment/logo.png" alt="Company Logo" class="logo">
         <h1 class="mb-4" style="text-align:center; color: white; margin-top: 20px;"><strong><?php echo $row['name']; ?></strong></h1>
+        <div id="google_translate_element" style="margin-top: 5px !important;margin-left: 600px;"></div>
+
         <div class="icon">
             <a href="cart_test.php"><i class="fa-solid fa-cart-shopping"></i></a>
             <a href="profile.php"><i class="fa-solid fa-user"></i></a>

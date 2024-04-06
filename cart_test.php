@@ -216,6 +216,13 @@ $farmer_id = $_SESSION['farmer_id'];
             }
         }
     </script>
+        <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+    </script>        
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </head>
 
 <body>
@@ -223,6 +230,8 @@ $farmer_id = $_SESSION['farmer_id'];
         <div>
             <img src="./images/equipment/logo.png" alt="Company Logo" class="logo">
             </div>
+            <div id="google_translate_element" style="margin-left: 760px !important; margin-top: 5px !important;"></div>
+
             <div class="cart">
                 <a href="Equip.html"><i class="icon fa-solid fa-tractor"></i></a>
                 <a href="profile.php"><i class="fa-solid fa-user"></i></a>

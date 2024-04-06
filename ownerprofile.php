@@ -467,12 +467,21 @@ $row = mysqli_fetch_assoc($status);
                 return true;
             }
         </script>
+            <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+    </script>        
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     </head>
     <body>
         <header style="border-bottom-style: solid !important; border-bottom-width: 30px !important;">
             <div>
                 <img src="./images/equipment/logo.png" alt="Company Logo" class="logo">
             </div>
+            <div id="google_translate_element" style="margin-left: 760px !important; margin-top: 5px !important;"></div>
+
             <div class="cart">
                 <a href="upload.html"><i class="icon fa-solid fa-upload"></i></a>
                 <a href="logout.php" class="icon"><i class="fa-solid fa-power-off"></i></a>
