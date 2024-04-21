@@ -156,7 +156,6 @@ $farmer_id = $_SESSION['farmer_id'];
     }
 
     .container {
-    /* Adjust container width */
     max-width: 100%;
     padding-right: 15px;
     padding-left: 15px;
@@ -165,7 +164,6 @@ $farmer_id = $_SESSION['farmer_id'];
 }
 
 .w-100 {
-    /* Adjust width */
     width: 100%;
 }
 
@@ -558,7 +556,5 @@ $farmer_id = $_SESSION['farmer_id'];
     });
 })
 </script>
-
-
 </body>
 </html>

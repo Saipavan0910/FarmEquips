@@ -212,9 +212,6 @@ $user_id = $_SESSION['user_id'];
                         $new_enddate = date('Y-m-d');
                     }
                     else{
-                        echo "<script>console.log('date: " . json_encode(date('Y-m-d')) . "');</script>";
-                        echo "<script>console.log('time: " . json_encode(date('h:i:s A')) . "');</script>";
-                        echo "<script>console.log('start date: " . json_encode($row['startdate']) . "');</script>";
                         $new_enddate = $row['startdate'];
                     }
                 }
